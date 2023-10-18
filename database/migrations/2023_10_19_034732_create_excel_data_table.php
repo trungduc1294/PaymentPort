@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('excel_data', function (Blueprint $table) {
             $table->id();
+            $table->integer('post_id');
+            $table->string('author_name');
+            $table->string('title');
             $table->string('email');
-            $table->string('user_type')->nullable();
-            $table->string('role_id');
-            $table->timestamp('email_verified_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -20,6 +20,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('excel_data');
     }
 };
