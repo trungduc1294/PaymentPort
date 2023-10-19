@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportExcelController;
+use App\Http\Controllers\AudienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,14 @@ Route::get('/test', function () {
 //Audience Route
 Route::get('/audience-registration', function () {
     return view('pages.audience.audience_registration_form');
-});
+})->name('audience-info-form');
+
+Route::post('/audience-registration', [AudienceController::class, 'storeUser']);
+
+Route::get('/audience-purchase', function () {
+    return view('pages.audience.audience_purchase_confirm');
+})->name('audience-purchase-form');
+
 
 
 //Author Route

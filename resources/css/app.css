@@ -1,5 +1,9 @@
-@import "footer.css";
+@import "partials/partials.css";
+@import "pages/pages.css";
 
-footer {
-    background-color: #111111;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto Light", sans-serif;
 }

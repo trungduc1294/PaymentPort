@@ -1,0 +1,22 @@
+footer {
+    background-color: #111111;
+    color: #fff;
+    padding: 30px 80px;
+    font-size: 14px;
+    bottom: 0;
+    width: 100%;
+}
+
+footer .container {
+    border-top: #565656 1px solid;
+}
+
+footer p {
+    padding: 20px 0px;
+    font-size: 16px;
+    color: #B6D0D6;
+}
+
+footer span {
+    color: #119AEB;
+}

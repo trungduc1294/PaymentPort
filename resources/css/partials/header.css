@@ -1,0 +1,49 @@
+header {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    padding: 0px 80px;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+}
+
+header .active {
+    color: #ffffff;
+    background-color: #9ca3af;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #5A4EC7;
+}
+
+.logo a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+}
+
+header nav a {
+    text-decoration: none;
+    color: #262626;
+    padding: 40px 20px;
+    font-size: 18px;
+    font-weight: normal;
+    transition: 0.3s ease-in-out;
+}
+
+header nav a:hover {
+    color: #ffffff;
+    background-color: #9ca3af;
+    transition: 0.3s ease-in-out;
+}
