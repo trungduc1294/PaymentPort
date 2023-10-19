@@ -32,7 +32,7 @@ class ImportExcelController extends Controller
                 Post::create([
                     'author_id' => $user->id,
                     'title' => $data->title,
-                    'status' => 'unpaid',
+                    'status' => 'active',
                 ]);
             }
             // if user exist, create new post
@@ -40,7 +40,7 @@ class ImportExcelController extends Controller
                 Post::create([
                     'author_id' => $user->id,
                     'title' => $data->title,
-                    'status' => 'unpaid',
+                    'status' => 'active',
                 ]);
             }
         }

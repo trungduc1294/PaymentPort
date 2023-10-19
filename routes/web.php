@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportExcelController;
 use App\Http\Controllers\AudienceController;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    return view('pages.homepage');
+    return view('pages.audience.check_email_bill');
 });
 
 //Audience Route
@@ -34,6 +35,9 @@ Route::get('/audience-purchase', function () {
     return view('pages.audience.audience_purchase_confirm');
 })->name('audience-purchase-form');
 
+Route::get('/audience-verify-registration/{id}', [MailController::class, 'audienceVerifyRegistration']);
+Route::delete('/audience_delete_registration/{id}', [AudienceController::class, 'deleteRegistration']);
+Route::get('/audience-accept-order/{order_id}', [AudienceController::class, 'audienceAcceptOrder'])->name('audience.order.accept');
 
 
 //Author Route
@@ -47,3 +51,6 @@ Route::get('/import-excel', function () {
     return view('import');
 });
 Route::post('/import-excel', [ImportExcelController::class, 'importExcel']);
+
+
+Route::get('/test-mail', [MailController::class, 'testMail']);

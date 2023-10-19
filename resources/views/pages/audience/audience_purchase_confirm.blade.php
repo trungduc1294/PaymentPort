@@ -7,8 +7,15 @@
         <p>Total Price: {{$totalPrice}}</p>
         <p>User type: {{$type_member}}</p>
 
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="/audience-verify-registration/{{$order_id}}" method="get" enctype="multipart/form-data">
+            @csrf
             <input type="submit" value="Check Out">
+        </form>
+
+        <form action="/audience_delete_registration/{{$order_id}}" method="post" enctype="multipart/form-data">
+            @csrf
+            @method('DELETE')
+            <input type="submit" value="Cancel">
         </form>
     </div>
 @endsection

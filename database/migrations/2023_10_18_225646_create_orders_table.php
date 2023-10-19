@@ -9,8 +9,9 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
-            $table->string('reference');
+            $table->string('status')->nullable();
+            $table->integer('total_price');
+            $table->string('reference')->nullable();
             $table->bigInteger('user_id');
             $table->softDeletes();
             $table->timestamps();
