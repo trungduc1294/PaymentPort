@@ -13,7 +13,7 @@
                 For Audience
             </a>
             <a
-                href="{{url("/author-registration")}}"
+                href="{{url("/author-show-posts")}}"
                 class="{{Request::is('author-registration') ? 'active' : ''}}"
             >
                 For Authors

@@ -32,7 +32,7 @@ class MailController extends Controller
         $total_price = $order->total_price;
         $order_status = $order->status;
 
-        // gửi email yêu câầu thanh toán đến người nhận
+        // gửi email yêu câầu thanh toán đến người nhận audience
         Mail::send('emails.audience_verify_registration',
             compact(
                 'order_id',

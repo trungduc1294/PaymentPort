@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportExcelController;
 use App\Http\Controllers\AudienceController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\AuthorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,9 +42,10 @@ Route::get('/audience-accept-order/{order_id}', [AudienceController::class, 'aud
 
 
 //Author Route
-Route::get('/author-registration', function () {
-    return view('pages.author.author_search_form');
-});
+//Route::get('/author-registration', function () {
+//    return view('pages.author.author_search_form');
+//});
+Route::get('/author-show-posts', [AuthorController::class, 'renderPosts']);
 
 
 // import route

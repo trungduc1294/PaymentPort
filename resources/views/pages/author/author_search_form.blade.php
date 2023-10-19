@@ -7,38 +7,32 @@
         <!-- Search input -->
         <label for="author-search">Search Author:</label>
         <input type="text" id="author-search" placeholder="Enter author name">
-        <button onclick="searchAuthors()">Search</button>
+        <button>Search</button>
 
         <!-- Data table -->
         <table>
             <thead>
             <tr>
                 <th>POSTID</th>
-                <th>Author Name</th>
+                <th>Author</th>
                 <th>Title</th>
                 <th>Email</th>
-                <th>Payment Status</th>
                 <th>Choose to Purchase</th>
             </tr>
             </thead>
             <tbody id="author-data">
             <!-- Sample Data -->
-            <tr>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>Sample Title 1</td>
-                <td>johndoe@example.com</td>
-                <td>Paid</td>
-                <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Jane Smith</td>
-                <td>Sample Title 2</td>
-                <td>janesmith@example.com</td>
-                <td>Unpaid</td>
-                <td><input type="checkbox"></td>
-            </tr>
+            @foreach($posts as $post)
+                @if($post->status == "active")
+                    <tr>
+                        <td>{{$post->id}}</td>
+                        <td>{{$post->author_name}}</td>
+                        <td>{{$post->title}}</td>
+                        <td>{{$post->email}}</td>
+                        <td><input type="checkbox" name="purchase" value="{{$post->id}}"></td>
+                    </tr>
+                @endif
+            @endforeach
             </tbody>
         </table>
     </div>
