@@ -13,7 +13,6 @@ return new class extends Migration {
             $table->bigInteger('post_id');
             $table->integer('extra_page');
             $table->bigInteger('order_id');
-            $table->string('sub_total');
             $table->softDeletes();
             $table->timestamps();
         });

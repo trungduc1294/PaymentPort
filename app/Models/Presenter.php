@@ -14,6 +14,5 @@ class Presenter extends Model
         'post_id',
         'extra_page',
         'order_id',
-        'sub_total',
     ];
 }

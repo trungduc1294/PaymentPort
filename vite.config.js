@@ -5,7 +5,7 @@ export default defineConfig({
     plugins: [
         laravel([
             // Add your laravel plugins here
-            'resources/css/app.css',
+            'resources/css/style.css',
         ]),
     ],
 });

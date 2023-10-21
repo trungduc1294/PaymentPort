@@ -5,7 +5,9 @@ use App\Http\Controllers\ImportExcelController;
 use App\Http\Controllers\AudienceController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\AuthorController;
-
+use App\Livewire\Counter;
+use App\Livewire\RegistrationManage;
+use App\Http\Controllers\ManageRegistrationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,6 +48,18 @@ Route::get('/audience-accept-order/{order_id}', [AudienceController::class, 'aud
 //    return view('pages.author.author_search_form');
 //});
 Route::get('/author-show-posts', [AuthorController::class, 'renderPosts']);
+Route::get('/author-info', [AuthorController::class, 'handleAuthorInfo']);
+//Route::get('/author-accept-order/{order_id}', [AuthorController::class, 'authorAcceptOrder'])->name('author.order.accept'); //cai nay dung
+Route::get('/author-accept-order', [AuthorController::class, 'authorAcceptOrder'])->name('author.order.accept');
+
+
+// Registration Manage Route
+Route::get('/registration-manage', function () {
+    return view('pages.manage-registration.manage_registration');
+});
+
+Route::post('/delete-order/{id}', [RegistrationManage::class, 'deleteOrder']);
+
 
 
 // import route
@@ -55,4 +69,10 @@ Route::get('/import-excel', function () {
 Route::post('/import-excel', [ImportExcelController::class, 'importExcel']);
 
 
+
+//test route
 Route::get('/test-mail', [MailController::class, 'testMail']);
+Route::get('/counter', Counter::class);
+Route::get('/posts', function () {
+    return view('search_test');
+});

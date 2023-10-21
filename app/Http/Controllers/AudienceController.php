@@ -28,6 +28,9 @@ class AudienceController extends Controller
         $userEmail = $data['email'];
         $type_member = "audience"; // 2 is audience
         $role_id = $data['type_member'];
+
+        $totalPrice = $this->getPrice($role_id);
+
         //check email exists
         $user = User::where('email', $userEmail)->first();
         if (!$user) {
@@ -39,14 +42,13 @@ class AudienceController extends Controller
             $newUser->save();
 
             // save order
-            $totalPrice = $this->getPrice($role_id);
             $order = new Order();
             $order->user_id = $newUser->id;
             $order->total_price = $totalPrice;
             $order->status = "unpaid";
             $order->save();
 
-            // đi  đến trang thống kê tiền theo ựa chọn
+            // đi  đến trang thống kê tiền theo lựa chọn
             return view('pages.audience.audience_purchase_confirm', [
                 'order_id' => $order->id,
                 'email' => $userEmail,
@@ -54,9 +56,23 @@ class AudienceController extends Controller
                 'type_member' => $type_member
             ]);
         }else {
-            // quay về màn hình form thông tin nếu email trùng
-            return redirect()->back()->with('error', 'Email already exists');
+            $order = Order::where('user_id', $user->id)->first();
+            $orderStatus = $order->status;
+
+            if ($orderStatus == "unpaid") {
+                // đi  đến trang thống kê tiền theo lựa chọn
+                return view('pages.audience.audience_purchase_confirm', [
+                    'order_id' => $order->id,
+                    'email' => $userEmail,
+                    'totalPrice' => $totalPrice,
+                    'type_member' => $type_member
+                ]);
+            } else {
+                // quay về màn hình form thông tin nếu email trùng
+                return redirect()->back()->with('error', 'Email already exists');
+            }
         }
+
     }
 
     // xóa thông tin order và user đăng ký khi bấm nút cancel ở màn hình thống kê tiền

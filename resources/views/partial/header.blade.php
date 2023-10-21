@@ -14,12 +14,13 @@
             </a>
             <a
                 href="{{url("/author-show-posts")}}"
-                class="{{Request::is('author-registration') ? 'active' : ''}}"
+                class="{{Request::is('author-show-posts') ? 'active' : ''}}"
             >
                 For Authors
             </a>
             <a
-                href="#"
+                href="{{url("/registration-manage")}}"
+                class="{{Request::is('registration-manage') ? 'active' : ''}}"
             >
                 Manage Registration
             </a>

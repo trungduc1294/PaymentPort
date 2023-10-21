@@ -2,5 +2,10 @@
 
 @import "audience/audience_form.css";
 @import "audience/audience_purchase_confirm.css";
+@import "audience/audience_payment_portal.css";
 
 @import "author/author_search_form.css";
+@import "author/author_info.css";
+@import "author/author_accept_order.css";
+
+@import "manage-registration/registration_manage.css";
