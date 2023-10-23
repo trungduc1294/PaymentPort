@@ -36,7 +36,9 @@ class RegistrationManage extends Component
             $this->orders = $this->listOrders->toArray();
         } else {
             $this->errorMessage = 'Không tìm thấy email nào phù hợp. Hãy kiểm tra lại.';
+            return;
         }
+        $this->errorMessage = '';
     }
 
 
@@ -62,7 +64,7 @@ class RegistrationManage extends Component
                 'code' => $this->random_code,
             ],
             function ($message) use ($user_email) {
-                $message->to('trungduc.1294@gmail.com');
+                $message->to($user_email);
                 $message->subject('Confimation Code');
             }
         );

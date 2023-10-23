@@ -31,6 +31,8 @@ class AudienceController extends Controller
 
         $totalPrice = $this->getPrice($role_id);
 
+
+
         //check email exists
         $user = User::where('email', $userEmail)->first();
         if (!$user) {
@@ -42,15 +44,15 @@ class AudienceController extends Controller
             $newUser->save();
 
             // save order
-            $order = new Order();
-            $order->user_id = $newUser->id;
-            $order->total_price = $totalPrice;
-            $order->status = "unpaid";
-            $order->save();
+            $newOrder = new Order();
+            $newOrder->user_id = $newUser->id;
+            $newOrder->total_price = $totalPrice;
+            $newOrder->status = "unpaid";
+            $newOrder->save();
 
             // đi  đến trang thống kê tiền theo lựa chọn
             return view('pages.audience.audience_purchase_confirm', [
-                'order_id' => $order->id,
+                'order_id' => $newOrder->id,
                 'email' => $userEmail,
                 'totalPrice' => $totalPrice,
                 'type_member' => $type_member
@@ -59,7 +61,8 @@ class AudienceController extends Controller
             $order = Order::where('user_id', $user->id)->first();
             $orderStatus = $order->status;
 
-            if ($orderStatus == "unpaid") {
+            // nếu tồn tại nhưng có bill chưa thanh toán thì cho vào để thanh toán
+            if ($orderStatus == "unpaid" && $user->user_type == "audience") {
                 // đi  đến trang thống kê tiền theo lựa chọn
                 return view('pages.audience.audience_purchase_confirm', [
                     'order_id' => $order->id,
@@ -67,7 +70,13 @@ class AudienceController extends Controller
                     'totalPrice' => $totalPrice,
                     'type_member' => $type_member
                 ]);
-            } else {
+            }
+            // nếu trong order unpaid mà là author thì báo lỗi là author
+            elseif ($orderStatus == "unpaid" && $user->user_type == "author") {
+                return redirect()->back()->with('error', 'You are an author, use For Author form. Unless, use another email.');
+            }
+            // nếu đã thanh toán thì báo lỗi là trùng email
+            else {
                 // quay về màn hình form thông tin nếu email trùng
                 return redirect()->back()->with('error', 'Email already exists');
             }

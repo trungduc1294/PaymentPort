@@ -80,7 +80,7 @@
                 <div class="author_section">
                     <div class="info_group">
                         <span>Your name: </span>
-                        <p>{{$posts[0]['author_name']}}</p>
+                        <p>{{ \App\Models\Post::where('author_id', $author->id)->value('author_name') }}</p>
                     </div>
                     <div class="info_group">
                         <span>Your email: </span>
@@ -104,6 +104,11 @@
                     </div>
                 </div>
             </div>
+
+            <div class="error_box">
+                <span>{{$errorMessages}}</span>
+            </div>
+
             <div class="button_container">
                 <button type="button" wire:click.prevent="checkout">Show bill</button>
             </div>

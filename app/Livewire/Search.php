@@ -69,6 +69,12 @@ class Search extends Component
 
     public function search() {
         $this->fetch();
+        // kiểm tra xem sau khi nhập email có tìm thấy bài post nào không
+        if (count($this->posts) === 0) {
+            $this->errorMessages = 'No post found';
+            return false;
+        }
+        $this->errorMessages = '';
     }
 
 
@@ -134,6 +140,8 @@ class Search extends Component
         $this->errorMessages = '';
         return true;
     }
+
+
 
     // continue to step 3 khi bấm nút
     public function continue()
@@ -231,12 +239,39 @@ class Search extends Component
     public $atendance_fee;
     public $extra_page_fee;
     public $total_fee;
+
+    // Hàm check nêu chọn 2 bài post trở lên thì không được chọn role là student
+    public function checkRoleStudent () {
+        if (($this->type_member === 'ADS' || $this->type_member === 'ADSM' || $this->type_member === 'SVNE') && $this->totalPosts > 1) {
+            $this->errorMessages = 'Student can only pay for 1 post';
+            return false;
+        }
+        $this->errorMessages = '';
+        return true;
+    }
+
     public function checkout()
     {
+// kiểm tra xem đã nhập đủ thông tin chưa
+        if (empty($this->type_member)) {
+            $this->errorMessages = 'Please select role';
+            return;
+        } else {
+            // kiểm tra xem đã chọn role student chưa
+            if (!$this->checkRoleStudent()) {
+                return;
+            }
+        }
+
+        // lưu các extra page wire:model vào mảng, nếu không có giá trị thì gán giá trị 0
         $this->extrapageConstruct();
+
+        // tính toán các giá trị
         $this->atendance_fee = $this->calAuthorFee();
         $this->extra_page_fee = $this->calExtraPageFee();
         $this->total_fee = $this->calTotalFee();
+
+        // chuyển sang step 4
         $this->step = 'checkout';
     }
 
@@ -250,7 +285,7 @@ class Search extends Component
         $order = new Order();
         $order->user_id = $this->author->id;
         $order->total_price = $this->total_fee;
-        $order->status = 'waiting';
+        $order->status = 'unpaid';
         $order->save();
 
         // lưu order_id để lấy ra khi gửi email
