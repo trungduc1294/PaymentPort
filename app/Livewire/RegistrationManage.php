@@ -79,7 +79,62 @@ class RegistrationManage extends Component
         $this->step = 'confirm_code';
     }
 
-    // Step3: compare code by input at view manage-registration.input_confirm_code
+    // Step 2B: show payment portal ----------------------------------------------------------------------------
+    public function showPaymentPort($id) {
+        $this->step = 'payment_portal';
+    }
+
+    // Step 3B: confirm payment portal ----------------------------------------------------------------------------
+    public $full_name;
+    public $phone_number;
+    public $card_number;
+    public $expiration_date;
+    public $cvv;
+
+    public function TestAccountCheck() {
+        if (
+            $this->full_name == 'Hoang Ha Trung Duc'
+            && $this->phone_number == '0332764063'
+            && $this->card_number == '0332764063'
+            && $this->expiration_date == '1111'
+            && $this->cvv == '123'
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function confirmPayment() {
+        if ($this->TestAccountCheck()) {
+            $order = Order::where('user_id', User::where('email', $this->searchValue)->first()->id)->first();
+            $order->status = 'paid';
+            $order->save();
+
+            // create a random join code and update in orders table, reference column
+            $join_code = $this->generateRandomCode();
+            $order->reference = $join_code;
+            $order->save();
+
+            // send email to user
+            $reciver_mail = $this->searchValue;
+            Mail::send('emails.reference_code',
+                [
+                    'join_code' => $join_code
+                ]
+                , function ($email) use ($reciver_mail) {
+                    $email->to($reciver_mail)->subject('Payment success! Join Code');
+                }
+            );
+
+            $this->errorMessage = '';
+            $this->step = 'success';
+        } else {
+            $this->errorMessage = 'Payment failed. Please check your information again.';
+        }
+    }
+
+    // Step3: CONFIRM CODE TO DELETE ORDER----------------------------------
     public function confirmCode() {
         if ($this->confirm_code == $this->random_code) {
 
