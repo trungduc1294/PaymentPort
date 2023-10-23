@@ -110,11 +110,11 @@
             </div>
 
             <div class="button_container">
-                <button type="button" wire:click.prevent="checkout">Show bill</button>
+                <button type="button" wire:click.prevent="showbill">Show bill</button>
             </div>
 
         </div>
-
+    {{-- STEP 4 Checkout --}}
     @elseif($step === 'checkout')
         <div class="author_bill">
             <h2>Your Bill</h2>
@@ -133,13 +133,60 @@
                 </div>
                 <p>Click purchase button, we will send to you an email to confirm.</p>
             </div>
-            <button type="button" wire:click.prevent="purchase">Purchase</button>
+            <button type="button" wire:click.prevent="verify">Verify</button>
         </div>
-    @elseif($step === 'email_success')
+    {{-- STEP 5 Check code--}}
+    @elseif($step === 'check_code')
+        <div class="check_code">
+            <h3>Check email and input verify code here.</h3>
+            <div class="code_input">
+                <input type="text" wire:model="user_input_code">
+                <div class="error_box">
+                    <span>{{$errorMessages}}</span>
+                </div>
+                <button wire:click.prevent="checkCode">Submit</button>
+            </div>
+        </div>
+    @elseif($step === 'payment')
+        <div class="payment_port">
+            <h1>Payment</h1>
+            <div class="email_anouncement_content">
+                <p>Thank you for your registration. Please fill in infomation to pay yourbill.</p>
+            </div>
+            <div class="pay_info">
+                <div class="pay_info_item">
+                    <span>Full name:</span>
+                    <input wire:model="full_name" type="text">
+                </div>
+                <div class="pay_info_item">
+                    <span>Phone number:</span>
+                    <input wire:model="phone_number" type="text">
+                </div>
+                <div class="pay_info_item">
+                    <span>Card number:</span>
+                    <input wire:model="card_number" type="text">
+                </div>
+                <div class="pay_info_item">
+                    <span>Expiration date:</span>
+                    <input wire:model="expiration_date" type="text">
+                </div>
+                <div class="pay_info_item">
+                    <span>CVV:</span>
+                    <input wire:model="cvv" type="text">
+                </div>
+                <div class="error_box">
+                    <span style="color: red;">
+                        {{$errorMessages}}
+                    </span>
+                </div>
+                <button wire:click="testPaySuccess">Purchase</button>
+            </div>
+        </div>
+    @elseif($step === 'success')
         <div class="success_container">
             <div class="author_email_success">
                 <h2>Thank you for your purchase!</h2>
-                <p>We have sent an email to you. Please check your email to confirm.</p>
+                <p>We have sent an email to give you a join code.</p>
                 <a href="https://mail.google.com">Email</a>
             </div>
         </div>

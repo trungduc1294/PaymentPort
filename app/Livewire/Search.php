@@ -134,6 +134,25 @@ class Search extends Component
                     $this->errorMessages = 'Please select posts from the same author';
                     return false;
                 }
+                // Kiểm tra xem có chọn bài post trùng với bài post mà user này đã từng order mà chưa thanh toán (unpaid) không
+                $authorId = $authorIdList[0];
+                $author = User::query()->find($authorId);
+                $authorOrders = Order::query()
+                    ->where('user_id', $authorId)
+                    ->where('status', 'unpaid')
+                    ->get();
+                $authorOrderIds = array_column($authorOrders->toArray(), 'id');
+                $authorOrderPresenters = Presenter::query()
+                    ->whereIn('order_id', $authorOrderIds)
+                    ->get();
+                $authorOrderPresentersPostIds = array_column($authorOrderPresenters->toArray(), 'post_id');
+                $selectedPostsId = array_column($this->selectedPosts, 'id');
+                $intersect = array_intersect($authorOrderPresentersPostIds, $selectedPostsId);
+                if (count($intersect) > 0) {
+                    $this->errorMessages = 'You have already ordered this post put not paid yet. Remove it from the Manage Registration to continue';
+                    return false;
+                }
+
             }
         }
 
@@ -184,7 +203,6 @@ class Search extends Component
     }
 
     // xác định price_code của author dựa vào số lượng bài post và loại thành viên
-    // chưa xử lý trường hợp nếu chọn 2 bài post trở lên thifif khi chọn role của student sẽ báo lỗi vì student chỉ được thanh toán 1 bài post
     public function determineTypeMember ($totalPost, $type_member) {
         if ($type_member === 'ADM' && $totalPost === 1) {
             return "E1";
@@ -250,9 +268,9 @@ class Search extends Component
         return true;
     }
 
-    public function checkout()
+    public function showbill()
     {
-// kiểm tra xem đã nhập đủ thông tin chưa
+        // kiểm tra xem đã nhập đủ thông tin chưa
         if (empty($this->type_member)) {
             $this->errorMessages = 'Please select role';
             return;
@@ -276,9 +294,37 @@ class Search extends Component
     }
 
     // Step 4: đưa dữ liệu ra bill va luu thong tin vao db  (checkout)----------------------------------------------
+    public function generateRandomCode() {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $code = '';
+        for ($i = 0; $i < 6; $i++) {
+            $code .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $code;
+    }
+
+    public $random_code;
+
+    public function verify() {
+        $this->random_code = $this->generateRandomCode();
+        $reciver_mail = $this->author->email;
+        Mail::send('emails.confirm_code',
+            [
+                'code' => $this->random_code
+            ]
+            , function ($email) use ($reciver_mail) {
+                $email->to($reciver_mail)->subject('Verify Code');
+            }
+        );
+
+        $this->step = 'check_code';
+    }
 
 
-    // lưu thông tin vào db
+
+    // STEP5: Email code xacs nhaanj -----------------------------------------------------------------------
+    public $user_input_code;
     public $order_id;
     public function storeToDB () {
         // store order
@@ -304,30 +350,67 @@ class Search extends Component
             $index++;
         }
     }
-
-    // gui email cho author neu bam nut thanh toan
-    public function sendEmailToAceptPurchase () {
-        Mail::send('emails.author_confirm_purchase',
-            [
-                'author' => $this->author,
-                'total_fee' => $this->total_fee,
-                'order_id' => $this->order_id,
-                'selectedPosts' => $this->selectedPosts,
-            ],
-            function ($email) {
-//                $email->to($this->author->email)->subject('Bill Payment From RIVF23 Payment Portal');
-                $email->to($this->author->email)->subject('Bill Payment From RIVF23 Payment Portal');
-            }
-        );
-        return view('pages.author.please_check_email_page');
-    }
-
-    public function purchase() {
-        $this->storeToDB();
-        $this->sendEmailToAceptPurchase();
-        // chuyen sang trang thong bao email da duoc gui
-        $this->step = 'email_success';
+    public function checkCode() {
+        if ($this->user_input_code === $this->random_code) {
+            $this->storeToDB();
+            $this->step = 'payment';
+        } else {
+            $this->errorMessages = 'Wrong code';
+        }
 
     }
 
+    // STEP 6: Payment ==============================================================
+// wire:model var
+    public $full_name;
+    public $phone_number;
+    public $card_number;
+    public $expiration_date;
+    public $cvv;
+
+    public function TestAccountCheck() {
+        if (
+            $this->full_name == 'Hoang Ha Trung Duc'
+            && $this->phone_number == '0332764063'
+            && $this->card_number == '0332764063'
+            && $this->expiration_date == '1111'
+            && $this->cvv == '123'
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function testPaySuccess () {
+        if ($this->TestAccountCheck()) {
+            // update order status
+            $order = Order::query()->find($this->order_id);
+            $order->status = 'paid';
+            $order->save();
+
+            // create a random join code and update in orders table, reference column
+            $join_code = $this->generateRandomCode();
+            $order->reference = $join_code;
+            $order->save();
+
+            // send email to author
+            $reciver_mail = $this->author->email;
+            Mail::send('emails.reference_code',
+                [
+                    'join_code' => $join_code
+                ]
+                , function ($email) use ($reciver_mail) {
+                    $email->to($reciver_mail)->subject('Payment Success, Join Code');
+                }
+            );
+
+            $this->step = 'success';
+        } else {
+            $this->errorMessages = 'Wrong card information';
+        }
+    }
+
+
+    // STEP 7 Successs ======================================
 }

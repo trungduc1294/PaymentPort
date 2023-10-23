@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Presenter;
 use Request;
 use App\Models\Order;
 use App\Models\User;
@@ -81,7 +82,18 @@ class RegistrationManage extends Component
     // Step3: compare code by input at view manage-registration.input_confirm_code
     public function confirmCode() {
         if ($this->confirm_code == $this->random_code) {
+
             $order = Order::find($this->delete_order_id);
+
+            // get all presenters of order and delete
+            $presenters = Presenter::where('order_id', $order->id)->get();
+            if ($presenters) {
+                foreach ($presenters as $presenter) {
+                    $presenter->delete();
+                }
+            }
+
+            // delete order
             $order->delete();
 
             // call search function to update list order

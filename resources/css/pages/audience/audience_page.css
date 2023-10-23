@@ -1,0 +1,10 @@
+@import "registration_form.css";
+@import "show_bill.css";
+@import "input_code.css";
+@import "payment.css";
+@import "success.css";
+
+.audience_page .container {
+    padding: 140px 80px;
+    background-color: #f5f5f5;
+}

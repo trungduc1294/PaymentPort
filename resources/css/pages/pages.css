@@ -1,8 +1,7 @@
 @import "homepage.css";
 
-@import "audience/audience_form.css";
-@import "audience/audience_purchase_confirm.css";
-@import "audience/audience_payment_portal.css";
+@import "audience/audience_page.css";
+
 
 @import "author/author_search_form.css";
 @import "author/author_info.css";

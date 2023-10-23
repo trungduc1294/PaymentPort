@@ -7,8 +7,8 @@
         </div>
         <nav>
             <a
-                href="{{url("/audience-registration")}}"
-                class="{{Request::is('audience-registration') ? 'active' : ''}}"
+                href="{{url("/audience-registration-page")}}"
+                class="{{Request::is('audience-registration-page') ? 'active' : ''}}"
             >
                 For Audience
             </a>

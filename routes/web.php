@@ -27,20 +27,27 @@ Route::get('/test', function () {
     return view('pages.audience.check_email_bill');
 });
 
+
+//Audience Page Route
+Route::get('/audience-registration-page', function () {
+    return view('pages.audience.audience_page');
+});
+
+
 //Audience Route
-Route::get('/audience-registration', function () {
-    return view('pages.audience.audience_registration_form');
-})->name('audience-info-form');
-
-Route::post('/audience-registration', [AudienceController::class, 'storeUser']);
-
-Route::get('/audience-purchase', function () {
-    return view('pages.audience.audience_purchase_confirm');
-})->name('audience-purchase-form');
-
-Route::get('/audience-verify-registration/{id}', [MailController::class, 'audienceVerifyRegistration']);
-Route::delete('/audience_delete_registration/{id}', [AudienceController::class, 'deleteRegistration']);
-Route::get('/audience-accept-order/{order_id}', [AudienceController::class, 'audienceAcceptOrder'])->name('audience.order.accept');
+//Route::get('/audience-registration', function () {
+//    return view('pages.audience.audience_registration_form');
+//})->name('audience-info-form');
+//
+//Route::post('/audience-registration', [AudienceController::class, 'getInfo']);
+//
+//Route::get('/audience-purchase', function () {
+//    return view('pages.audience.audience_purchase_confirm');
+//})->name('audience-purchase-form');
+//
+//Route::get('/audience-verify-registration/{id}', [MailController::class, 'audienceVerifyRegistration']);
+//Route::delete('/audience_delete_registration/{id}', [AudienceController::class, 'deleteRegistration']);
+//Route::get('/audience-accept-order/{order_id}', [AudienceController::class, 'audienceAcceptOrder'])->name('audience.order.accept');
 
 
 //Author Route
