@@ -174,13 +174,13 @@ class Search extends Component
         } else {
             // nếu thỏa mãn các điều kiện thì sẽ tiến hành lấy thông tin author khi bấm nút và chuyển sang buước tiếp theo
             $this->fetchAuthorInfo();
-            $this->step = 'provide_info';
+            $this->step = 'provide_info.blade.php';
         }
     }
 
 
 
-    // STEP3: Dien cac thong tin can thiet va tinh tien (provide_info) ---------------------------------------------------------------
+    // STEP3: Dien cac thong tin can thiet va tinh tien (provide_info.blade.php) ---------------------------------------------------------------
     //tạo các wire:model cho các trường cần thiết để lấy dữ liệu
     public $type_member;
     public $extra_page1;

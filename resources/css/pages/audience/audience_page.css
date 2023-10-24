@@ -1,8 +1,8 @@
-@import "registration_form.css";
-@import "show_bill.css";
-@import "input_code.css";
-@import "payment.css";
-@import "success.css";
+@import "audience-partials/registration_form.css";
+@import "audience-partials/show_bill.css";
+@import "audience-partials/input_code.css";
+@import "audience-partials/payment.css";
+@import "audience-partials/success.css";
 
 .audience_page .container {
     padding: 140px 80px;

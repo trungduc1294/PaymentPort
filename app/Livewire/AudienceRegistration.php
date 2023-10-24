@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\User;
 use App\Models\Order;
 use Mail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AudienceRegistration extends Component
 {
@@ -27,9 +28,8 @@ class AudienceRegistration extends Component
         return view('livewire.audience-registration');
     }
 
-    // STEP 1: REGISTRATION FORM ======================================
+    // STEP 1: REGISTRATION FORM ==============================================================================
     public function checkInfoRegis () {
-
         // Nếu chưa nập đủ thông tin thì return false
         if ($this->email == null) {
             $this->errMessage = 'Email must not be null';
@@ -97,6 +97,9 @@ class AudienceRegistration extends Component
     // if click confirm button
     public $random_code;
     public function verify_bill () {
+        $this->step = 'input-code';
+
+        // send email to user
         $reciver_mail = $this->email;
         $this->random_code = $this->generateRandomCode();
         Mail::send('emails.confirm_code',
@@ -107,8 +110,6 @@ class AudienceRegistration extends Component
                 $email->to($reciver_mail)->subject('Verify Code');
             }
         );
-
-        $this->step = 'input-code';
     }
     public function cancel_bill () {
         $this->step = 'registration-form';

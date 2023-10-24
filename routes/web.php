@@ -23,37 +23,12 @@ Route::get('/', function () {
     return view('pages.homepage');
 });
 
-Route::get('/test', function () {
-    return view('pages.audience.check_email_bill');
-});
-
 
 //Audience Page Route
 Route::get('/audience-registration-page', function () {
     return view('pages.audience.audience_page');
 });
 
-
-//Audience Route
-//Route::get('/audience-registration', function () {
-//    return view('pages.audience.audience_registration_form');
-//})->name('audience-info-form');
-//
-//Route::post('/audience-registration', [AudienceController::class, 'getInfo']);
-//
-//Route::get('/audience-purchase', function () {
-//    return view('pages.audience.audience_purchase_confirm');
-//})->name('audience-purchase-form');
-//
-//Route::get('/audience-verify-registration/{id}', [MailController::class, 'audienceVerifyRegistration']);
-//Route::delete('/audience_delete_registration/{id}', [AudienceController::class, 'deleteRegistration']);
-//Route::get('/audience-accept-order/{order_id}', [AudienceController::class, 'audienceAcceptOrder'])->name('audience.order.accept');
-
-
-//Author Route
-//Route::get('/author-registration', function () {
-//    return view('pages.author.author_search_form');
-//});
 Route::get('/author-show-posts', [AuthorController::class, 'renderPosts']);
 Route::get('/author-info', [AuthorController::class, 'handleAuthorInfo']);
 //Route::get('/author-accept-order/{order_id}', [AuthorController::class, 'authorAcceptOrder'])->name('author.order.accept'); //cai nay dung
@@ -76,10 +51,7 @@ Route::get('/import-excel', function () {
 Route::post('/import-excel', [ImportExcelController::class, 'importExcel']);
 
 
-
-//test route
-Route::get('/test-mail', [MailController::class, 'testMail']);
-Route::get('/counter', Counter::class);
-Route::get('/posts', function () {
-    return view('search_test');
+// Test
+Route::get('/test-alert', function () {
+    return view('livewire.test-alert');
 });

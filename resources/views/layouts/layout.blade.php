@@ -16,6 +16,11 @@
     @yield('style')
 </head>
 <body>
+    {{--    @include('sweetalert::alert')--}}
+    @livewireScripts
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <x-livewire-alert::scripts />
+
     @include('partial.header')
 
     @yield('content')
@@ -23,5 +28,6 @@
     @include('partial.footer')
 
     @yield('script')
+
 </body>
 </html>

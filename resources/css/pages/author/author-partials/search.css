@@ -1,0 +1,96 @@
+.author_search {
+    padding: 140px 80px;
+}
+
+/* Style for the container of the author search section */
+.author_search {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the title section */
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.title h1 {
+    font-size: 24px;
+}
+
+.title p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Style for the search input */
+.search_box {
+    margin-bottom: 20px;
+}
+
+label[for="author-search"] {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#author-search {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    outline: none;
+}
+
+/* Style for the error box */
+.error_box {
+    margin-top: 20px
+}
+
+.error_box span {
+    color: red;
+    font-weight: bold;
+    display: block; /* Display the error message on a new line */
+    margin-top: 5px; /* Add some spacing between the error messages */
+}
+
+/* Style for the data table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+table tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+/* Style for the checkboxes */
+input[type="checkbox"] {
+    margin: 0;
+}
+
+/* Style for the "Continue" button */
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
