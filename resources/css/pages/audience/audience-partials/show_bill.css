@@ -5,6 +5,8 @@
     border-radius: 10px;
     box-shadow: var(--box-shadow-primary);
     background-image: var(--background-form);
+
+    position: relative;
 }
 
 .show_bill h1 {

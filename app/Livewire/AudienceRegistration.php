@@ -100,7 +100,6 @@ class AudienceRegistration extends Component
     // if click confirm button
     public $random_code;
     public function verify_bill () {
-
         $this->step = 'input-code';
 
         // send email to user

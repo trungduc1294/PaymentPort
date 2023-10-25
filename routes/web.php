@@ -56,6 +56,6 @@ Route::post('/import-excel', [ImportExcelController::class, 'importExcel']);
 
 
 // Test
-Route::get('/test-alert', function () {
-    return view('pages.test-alert.test-alert');
+Route::get('/test-loading', function () {
+    return view('pages.test.loading');
 });

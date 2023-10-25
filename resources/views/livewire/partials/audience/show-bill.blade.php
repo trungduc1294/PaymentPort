@@ -1,4 +1,4 @@
-<div class="show_bill">
+<div class="show_bill loading-container">
     <h1>Billing</h1>
     <div class="bill_container">
         <div class="bill_info">
@@ -15,4 +15,5 @@
         <button wire:click.prevent="verify_bill" >Confirm</button>
         <button wire:click.prevent="cancel_bill">Cancel</button>
     </div>
+    @include('livewire.loading', ['eventTarget' => 'verify_bill'])
 </div>

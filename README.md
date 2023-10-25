@@ -43,8 +43,12 @@
     - Gửi mail xác minh
     
 # 4. Các vấn đề còn lại
-    - Chưa xử lý không hiện các bài post sau khi thanh toán xong, chờ lấy trạng thái từ cổng thành toán là thành công để chuyển status của post thành unactive, khi đó sẽ không hiêện nữa
-    - Chưa tạo bảng transaction để lưu trạng thái thanh toán, liên kết tới orderid, từ đó sửa các logic cần thiết phải thay đổi
     - chưa tạo loading khi gửi mail
+    - fix height css
+    - 
+    - Chưa xử lý không hiện các bài post sau khi thanh toán xong, chờ lấy trạng thái từ cổng thành toán là thành công để 
+    chuyển status của post thành unactive, khi đó sẽ không hiêện nữa
+    - Chưa tạo bảng transaction để lưu trạng thái thanh toán, liên kết tới orderid, từ đó sửa các logic cần thiết phải thay đổi
+    
     - chưa liên kết với cổng thanh toán
     - chưa deploy

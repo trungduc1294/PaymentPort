@@ -24,6 +24,6 @@
     --background-primary: rgba(137, 207, 243, 1);
     --background-secondary: rgba(137, 207, 243, 0.5);
     --background-white: #fff;
-    --background-form: linear-gradient(120deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+    --background-form: linear-gradient(120deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.4));
 
 }
