@@ -1,14 +1,17 @@
 .verify_by_code {
-    max-width: 400px;
+    max-width: 50%;
     margin: 0 auto;
-    background-color: #f2f2f2;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    box-shadow: var(--box-shadow-primary);
+
+    background-image: var(--background-form);
+
 }
 
 .verify_by_code h3 {
-    font-size: 18px;
+    font-size: var(--fontsize-title);
     text-align: center;
     margin-bottom: 20px;
 }
@@ -22,12 +25,27 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: var(--fontsize-content);
+    outline: none;
+    color: var(--text-secondary);
+    background-color: transparent;
+    transition: 0.1s ease-in-out;
+}
+
+.verify_by_code input[type="text"]:hover {
+    box-shadow: var(--input-outline-primary);
+    transition: 0.1s ease-in-out;
+}
+
+.verify_by_code input[type="text"]:focus {
+    box-shadow: var(--input-outline-primary);
+    transform: scale(102%);
+    transition: 0.1s ease-in-out;
 }
 
 .verify_by_code span {
-    color: red;
-    font-size: 14px;
+    color: var(--text-error);
+    font-size: var(--fontsize-content);
     display: block;
     margin-top: 5px;
 }
@@ -36,14 +54,14 @@
     display: inline-block;
     padding: 10px 20px;
     background-color: #007bff;
-    color: #fff;
+    color: var(--text-white);
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: var(--fontsize-content);
     cursor: pointer;
     margin-top: 10px;
 }
 
 .verify_by_code button:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover);
 }

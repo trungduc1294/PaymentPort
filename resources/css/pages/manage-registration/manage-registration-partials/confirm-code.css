@@ -1,22 +1,26 @@
 /* Style for the container of the confirmation code section */
 .confirm_code_section {
+    width: 70%;
+    margin: 80px auto;
     text-align: center;
     padding: 20px;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-primary);
+    border-radius: 10px;
+
+    box-shadow: var(--box-shadow-primary);
+    background-image: var(--background-form);
 }
 
 /* Style for the first paragraph */
 .confirm_code_section p:first-child {
-    font-size: 18px;
+    font-size: var(--fontsize-subtitle);
     margin-bottom: 10px;
 }
 
 /* Style for the error message paragraph */
 .confirm_code_section p:last-child {
-    color: red;
+    color: var(--text-error);
+    font-size: var(--fontsize-content);
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -24,22 +28,38 @@
 /* Style for the input field */
 .confirm_code_section input[type="text"] {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-primary);
     border-radius: 5px;
     width: 50%;
     margin-bottom: 10px;
+    outline: none;
+    font-size: var(--fontsize-content);
+    color: var(--text-secondary);
+
+    transition: 0.2s ease-in-out;
+}
+
+.confirm_code_section input[type="text"]:hover {
+    box-shadow: var(--input-outline-primary);
+    transition: 0.2s ease-in-out;
+}
+
+.confirm_code_section input[type="text"]:focus {
+    box-shadow: var(--input-outline-primary);
+    transform: scale(102%);
+    transition: 0.2s ease-in-out;
 }
 
 /* Style for the confirm button */
 .confirm_code_section button {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--button-primary);
+    color: var(--text-white);
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .confirm_code_section button:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover);
 }

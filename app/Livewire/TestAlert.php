@@ -13,11 +13,14 @@ class TestAlert extends Component
         return view('livewire.test-alert');
     }
 
-    public $haha = 'haha';
-    public function showAlert()
-    {
-        dd('test');
-        $this->alert('success', 'Basic Alert');
-
+    public function myAlert() {
+        $this->alert('success', 'Success!', [
+            'position' => 'top-end',
+            'timer' => '1000',
+            'toast' => true,
+            'timerProgressBar' => true,
+            'showConfirmButton' => false,
+            'onConfirmed' => '',
+        ]);
     }
 }

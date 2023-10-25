@@ -1,11 +1,14 @@
 <div class="audience_form">
     <h1>Audience Registration Form</h1>
+
+    <span>{{$errMessage}}</span>
+
     <div class="form_regis">
         <div class="form-group">
             <label for="email">Email: </label>
             <input wire:model="email" type="email" name="email" id="email" placeholder="Enter your email">
-            <span>{{$errMessage}}</span>
         </div>
+
 
         <div class="form-group">
             <label for="type_member">Choose your role:</label>

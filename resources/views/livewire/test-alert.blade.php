@@ -1,4 +1,4 @@
-
-<div style="padding: 140px">
-    <button wire:click.prevent="showAlert">{{$haha}}</button>
+<div>
+    <h1>Hello</h1>
+    <button wire:click="myAlert">Alert</button>
 </div>

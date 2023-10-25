@@ -1,17 +1,17 @@
 .success {
-    max-width: 400px;
+    width: 40%;
     margin: 0 auto;
     background-color: #2ecc71; /* Green color for success */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow-primary);
 }
 
 .success h1 {
-    font-size: 24px;
+    font-size: var(--fontsize-title);
     text-align: center;
     margin-bottom: 20px;
-    color: #fff; /* White text color */
+    color: var(--text-white); /* White text color */
 }
 
 .success_content {
@@ -19,5 +19,5 @@
 }
 
 .success_content p {
-    color: #fff; /* White text color */
+    color: var(--text-white); /* White text color */
 }

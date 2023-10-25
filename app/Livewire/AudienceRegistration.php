@@ -8,9 +8,12 @@ use App\Models\User;
 use App\Models\Order;
 use Mail;
 use RealRashid\SweetAlert\Facades\Alert;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class AudienceRegistration extends Component
 {
+    use LivewireAlert;
+
     // string step define
     public $step = 'registration-form';
     public $errMessage = '';
@@ -97,6 +100,7 @@ class AudienceRegistration extends Component
     // if click confirm button
     public $random_code;
     public function verify_bill () {
+
         $this->step = 'input-code';
 
         // send email to user
@@ -112,6 +116,15 @@ class AudienceRegistration extends Component
         );
     }
     public function cancel_bill () {
+        $this->alert('error', 'Delete successfully!', [
+            'position' => 'top-end',
+            'timer' => '2000',
+            'toast' => true,
+            'timerProgressBar' => true,
+            'showConfirmButton' => false,
+            'onConfirmed' => '',
+        ]);
+
         $this->step = 'registration-form';
     }
 
@@ -137,9 +150,29 @@ class AudienceRegistration extends Component
     public function checkCode () {
         if ($this->user_code_input == $this->random_code) {
             $this->storeToDb();
+
+            $this->alert('success', 'Verify Successfully!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
+
             $this->step = 'payment';
+            $this->errMessage = '';
         } else {
             $this->errMessage = 'Code is not correct';
+
+            $this->alert('error', 'Wrong code!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
         }
     }
 
@@ -215,8 +248,25 @@ class AudienceRegistration extends Component
 
             $this->errMessage = '';
             $this->step = 'success';
+
+            $this->alert('success', 'Pay Successfully!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
         } else {
             $this->errMessage = 'Payment failed. Please check your information again.';
+            $this->alert('error', 'Payment failed!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
         }
     }
 

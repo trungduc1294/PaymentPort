@@ -7,14 +7,20 @@
         </div>
         <nav>
             <a
+                href="{{url("/")}}"
+                class="{{Request::is('/') ? 'active' : ''}}"
+            >
+                Guildline
+            </a>
+            <a
                 href="{{url("/audience-registration-page")}}"
                 class="{{Request::is('audience-registration-page') ? 'active' : ''}}"
             >
                 For Audience
             </a>
             <a
-                href="{{url("/author-show-posts")}}"
-                class="{{Request::is('author-show-posts') ? 'active' : ''}}"
+                href="{{url("/author")}}"
+                class="{{Request::is('author') ? 'active' : ''}}"
             >
                 For Authors
             </a>

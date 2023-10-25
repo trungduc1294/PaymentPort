@@ -1,0 +1,29 @@
+:root {
+    --text-primary: #45474B;
+    --text-secondary: #8D8D8D;
+    --text-white: #fff;
+    --text-logo: #5A4EC7;
+    --text-error: #ff3333;
+
+    --fontsize-title: 24px;
+    --fontsize-subtitle: 18px;
+    --fontsize-content: 14px;
+
+    --button-primary: #007bff;
+    --button-hover: #0056b3;
+
+    --border-primary: #ccc;
+
+    --input-outline-primary: 0 0 15px rgba(255, 217, 61, 0.4), 0 0 2px rgba(255, 217, 61, 1);
+    --input-outline-focus-full: rgba(255, 217, 61, 1);
+    --input-outline-focus-alpha: rgba(255, 217, 61, 0.4);
+
+    --box-shadow-primary: 0 0 8px rgba(255, 255, 255, 0.2);
+    --box-shadow-grey: 0 0 8px rgba(0, 0, 0, 0.2);
+
+    --background-primary: rgba(137, 207, 243, 1);
+    --background-secondary: rgba(137, 207, 243, 0.5);
+    --background-white: #fff;
+    --background-form: linear-gradient(120deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+
+}

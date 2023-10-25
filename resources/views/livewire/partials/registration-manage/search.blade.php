@@ -1,10 +1,14 @@
 <div class="search_section">
+    <span class="info_box">
+        Please search by full email, include domain name (e.g. abc@gmail.com)
+    </span>
+
     <div class="error_box">
         <p style="color: red;">{{$errorMessage}}</p>
     </div>
 
     <div class="email_search_box">
-        <input type="text" wire:model="searchValue" placeholder="Search by email..." />
+        <input type="text" wire:model="searchValue" placeholder="Ex: abc@gmail.com" />
         <button wire:click="search">Search</button>
     </div>
 

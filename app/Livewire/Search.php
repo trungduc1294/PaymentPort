@@ -9,6 +9,7 @@ use App\Models\Price;
 use App\Models\User;
 use Livewire\Component;
 use Mail;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 /**
  * Step 1:
@@ -30,6 +31,8 @@ use Mail;
  */
 class Search extends Component
 {
+    use LivewireAlert;
+
     // properties
     public $errorMessages;
     public $keyword = '';
@@ -175,6 +178,15 @@ class Search extends Component
             // nếu thỏa mãn các điều kiện thì sẽ tiến hành lấy thông tin author khi bấm nút và chuyển sang buước tiếp theo
             $this->fetchAuthorInfo();
             $this->step = 'provide_info.blade.php';
+
+            $this->alert('success', 'Choose post successfully!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
         }
     }
 
@@ -319,6 +331,14 @@ class Search extends Component
         );
 
         $this->step = 'check_code';
+        $this->alert('success', 'Mail sent success!', [
+            'position' => 'top-end',
+            'timer' => '2000',
+            'toast' => true,
+            'timerProgressBar' => true,
+            'showConfirmButton' => false,
+            'onConfirmed' => '',
+        ]);
     }
 
 
@@ -354,8 +374,25 @@ class Search extends Component
         if ($this->user_input_code === $this->random_code) {
             $this->storeToDB();
             $this->step = 'payment';
+            $this->errorMessages = '';
+            $this->alert('success', 'Verify Success!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
         } else {
             $this->errorMessages = 'Wrong code';
+            $this->alert('error', 'Wrong code!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
         }
 
     }

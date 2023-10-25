@@ -1,14 +1,18 @@
 header {
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-    padding: 0px 80px;
-    position: fixed;
-    background-color: white;
+    padding: 0px 40px;
+    position: sticky;
+    top: 0;
     width: 100%;
+    z-index: 100;
+    border-bottom: 1px solid var(--border-primary);
+
+    background-image: linear-gradient(120deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+    backdrop-filter: blur(16px);
 }
 
 header .active {
-    color: #ffffff;
-    background-color: #9ca3af;
+    color: var(--text-white);
+    background-color: var(--background-primary);
 }
 
 .container {
@@ -20,7 +24,7 @@ header .active {
 .logo {
     font-size: 30px;
     font-weight: bold;
-    color: #5A4EC7;
+    color: var(--text-logo);
 }
 
 .logo a {
@@ -35,15 +39,15 @@ header nav {
 
 header nav a {
     text-decoration: none;
-    color: #262626;
+    color: var(--text-primary);
     padding: 40px 20px;
-    font-size: 18px;
+    font-size: var(--fontsize-subtitle);
     font-weight: normal;
     transition: 0.3s ease-in-out;
 }
 
 header nav a:hover {
-    color: #ffffff;
-    background-color: #9ca3af;
+    color: var(--text-white);
+    background-color: var(--background-secondary);
     transition: 0.3s ease-in-out;
 }

@@ -1,17 +1,19 @@
 .show_bill {
-    max-width: 400px;
+    width: 50%;
     margin: 0 auto;
-    background-color: #f2f2f2;
     padding: 80px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow-primary);
+    background-image: var(--background-form);
 }
 
 .show_bill h1 {
-    font-size: 36px;
+    font-size: var(--fontsize-title);
     text-align: center;
     margin-bottom: 40px;
-    color: #4b5563;
+    color: var(--text-primary);
+
+    cursor: default;
 }
 
 .bill_container {
@@ -20,15 +22,24 @@
 
 .bill_info {
     margin: 16px 0;
+    cursor: default;
+    transition: 0.2s ease-in-out;
+}
+
+.bill_info:hover {
+    transform: scale(102%);
+    box-shadow: var(--box-shadow-primary);
+    transition: 0.2s ease-in-out;
 }
 
 .bill_info span {
     font-weight: bold;
+    font-size: var(--fontsize-subtitle);
 }
 
 .bill_info p {
     font-weight: normal;
-    color: #4b5563;
+    color: var(--text-secondary);
 }
 
 .button_wrapper {
@@ -38,15 +49,21 @@
 
 button {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
+    margin-right: 10px;
+
+    background-color: var(--button-primary);
+    color: var(--text-white);
+    font-size: var(--fontsize-subtitle);
+    cursor: pointer;
+
     border: none;
     border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-right: 10px;
+
+    transition: 0.2s ease-in-out;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover);
+    transform: translate(0, -2px);
+    transition: 0.1s ease-in-out;
 }

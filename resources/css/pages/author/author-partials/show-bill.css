@@ -1,33 +1,28 @@
 .author_bill {
-    padding: 140px 80px;
+    width: 70%;
+    margin: 80px auto;
+    padding: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-/* Style for the container of the author_bill section */
-.author_bill {
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-primary);
     border-radius: 5px;
-    background-color: #f5f5f5;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
+    background-image: var(--background-form);
+    box-shadow: var(--box-shadow-primary);
 }
 
 /* Style for the title */
 .author_bill h2 {
-    font-size: 24px;
+    font-size: var(--fontsize-title);
     text-align: center;
     margin-bottom: 20px;
 }
 
 /* Style for the bill content */
-
-
 .bill_content {
     margin-bottom: 20px;
-    width: 30%;
+    width: 50%;
 }
 
 .bill_content_group {
@@ -39,24 +34,26 @@
 
 .bill_content_group span {
     margin-right: 10px;
-    font-weight: bold;
+    color: var(--text-primary);
+    font-size: var(--fontsize-subtitle);
 }
 
 .bill_content p {
-    font-size: 14px;
-    color: #4b5563;
+    font-size: var(--fontsize-subtitle);
+    color: var(--text-secondary);
 }
 
 /* Style for the "Purchase" button */
 button[type="button"] {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--button-primary);
+    color: var(--text-white);
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 50%;
 }
 
 button[type="button"]:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover);
 }

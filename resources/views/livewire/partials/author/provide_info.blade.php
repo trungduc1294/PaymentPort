@@ -11,7 +11,7 @@
                     <li>
                             <?php $index++; ?>
                         <span>{{$index}}</span>
-                        <span>{{ $post['title'] }}</span>
+                        <span class="post_title">{{ $post['title'] }}</span>
                         <input wire:model="extra_page{{$index}}" type="text" placeholder="Extra page" name="{{'extra'.$post['id']}}}">
                     </li>
                 @endforeach

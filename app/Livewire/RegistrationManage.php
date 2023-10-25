@@ -10,9 +10,12 @@ use Livewire\Component;
 use Mail;
 use function Laravel\Prompts\alert;
 use function Laravel\Prompts\confirm;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class RegistrationManage extends Component
 {
+    use LivewireAlert;
+
     public $errorMessage;
     public string $step = 'search';
 
@@ -35,8 +38,29 @@ class RegistrationManage extends Component
         if ($user) {
             $this->listOrders = Order::where('user_id', $user->id)->get();
             $this->orders = $this->listOrders->toArray();
+
+            // check empty list
+            if (count($this->orders) == 0) {
+                $this->alert('warning', 'There are no orders!', [
+                    'position' => 'top-end',
+                    'timer' => '2000',
+                    'toast' => true,
+                    'timerProgressBar' => true,
+                    'showConfirmButton' => false,
+                    'onConfirmed' => '',
+                ]);
+                return;
+            }
         } else {
             $this->errorMessage = 'Không tìm thấy email nào phù hợp. Hãy kiểm tra lại.';
+            $this->alert('error', 'Your email is inappropriate!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
             return;
         }
         $this->errorMessage = '';
@@ -131,6 +155,14 @@ class RegistrationManage extends Component
             $this->step = 'success';
         } else {
             $this->errorMessage = 'Payment failed. Please check your information again.';
+            $this->alert('error', 'Payment fail!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
         }
     }
 
@@ -154,9 +186,26 @@ class RegistrationManage extends Component
             // call search function to update list order
             $this->search();
             $this->errorMessage = '';
+            $this->alert('success', 'Verify successfully!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
+
             $this->step = 'search';
         } else {
             $this->errorMessage = 'Mã xác nhận không đúng';
+            $this->alert('error', 'Wrong code. Again!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
             $this->step = 'search';
         }
     }

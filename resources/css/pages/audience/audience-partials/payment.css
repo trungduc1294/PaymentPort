@@ -1,14 +1,17 @@
 .payment_port {
-    max-width: 700px;
+    max-width: 70%;
     margin: 0 auto;
-    background-color: #f2f2f2;
-    padding: 80px;
+    padding: 40px 80px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    box-shadow: var(--box-shadow-primary);
+
+    background-color: transparent;
+    background-image: var(--background-form);
 }
 
 .payment_port h1 {
-    font-size: 24px;
+    font-size: var(--fontsize-title);
     text-align: center;
     margin-bottom: 20px;
 }
@@ -16,6 +19,8 @@
 .email_anouncement_content {
     text-align: center;
     margin-bottom: 20px;
+    font-size: var(--fontsize-content);
+    color: var(--text-secondary);
 }
 
 .pay_info {
@@ -27,30 +32,54 @@
 }
 
 .pay_info_item span {
-    font-weight: bold;
     display: block;
+    font-size: var(--fontsize-subtitle);
+    margin-bottom: 3px;
 }
 
 .payment_port input[type="text"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-primary);
     border-radius: 5px;
-    font-size: 16px;
+    font-size: var(--fontsize-content);
+    color: var(--text-secondary);
+
+    outline: none;
+    background-color: transparent;
+
+    transition: 0.1s ease-in-out;
+}
+
+.payment_port input[type="text"]:hover {
+    box-shadow: var(--input-outline-primary);
+    transition: 0.1s ease-in-out;
+}
+
+.payment_port input[type="text"]:focus {
+    box-shadow: var(--input-outline-primary);
+    transform: scale(102%);
+    transition: 0.1s ease-in-out;
 }
 
 .payment_port button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--button-primary);
+    color: var(--text-white);
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     margin-top: 10px;
+    width: 100%;
 }
 
 .payment_port button:hover {
     background-color: #0056b3;
+}
+
+.error_box {
+    color: var(--text-error);
+    font-size: var(--fontsize-content);
 }

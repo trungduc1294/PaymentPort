@@ -2,12 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportExcelController;
-use App\Http\Controllers\AudienceController;
-use App\Http\Controllers\MailController;
+//use App\Http\Controllers\AudienceController;
+//use App\Http\Controllers\MailController;
 use App\Http\Controllers\AuthorController;
-use App\Livewire\Counter;
+//use App\Livewire\Counter;
 use App\Livewire\RegistrationManage;
-use App\Http\Controllers\ManageRegistrationController;
+//use App\Http\Controllers\ManageRegistrationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,10 +29,14 @@ Route::get('/audience-registration-page', function () {
     return view('pages.audience.audience_page');
 });
 
-Route::get('/author-show-posts', [AuthorController::class, 'renderPosts']);
-Route::get('/author-info', [AuthorController::class, 'handleAuthorInfo']);
-//Route::get('/author-accept-order/{order_id}', [AuthorController::class, 'authorAcceptOrder'])->name('author.order.accept'); //cai nay dung
-Route::get('/author-accept-order', [AuthorController::class, 'authorAcceptOrder'])->name('author.order.accept');
+//Route::get('/author-show-posts', [AuthorController::class, 'renderPosts']);
+//Route::get('/author-info', [AuthorController::class, 'handleAuthorInfo']);
+////Route::get('/author-accept-order/{order_id}', [AuthorController::class, 'authorAcceptOrder'])->name('author.order.accept'); //cai nay dung
+//Route::get('/author-accept-order', [AuthorController::class, 'authorAcceptOrder'])->name('author.order.accept');
+
+Route::get('/author', function () {
+    return view('pages.author.author_search_form');
+});
 
 
 // Registration Manage Route
@@ -53,5 +57,5 @@ Route::post('/import-excel', [ImportExcelController::class, 'importExcel']);
 
 // Test
 Route::get('/test-alert', function () {
-    return view('livewire.test-alert');
+    return view('pages.test-alert.test-alert');
 });

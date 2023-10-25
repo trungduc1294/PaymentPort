@@ -1,15 +1,17 @@
 .audience_form {
-    max-width: 400px;
+    width: 50%;
     margin: 0 auto;
-    background-color: #f2f2f2;
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    background-image: var(--background-form);
+    backdrop-filter: blur(16px);
+    box-shadow: var(--box-shadow-primary);
 }
 
 .audience_form h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: var(--fontsize-title);
+    margin-bottom: 40px;
     text-align: center;
 }
 
@@ -18,40 +20,75 @@
 }
 
 .form_regis .form-group {
-    margin: 10px 0;
+    margin: 20px 0;
     text-align: left;
 }
 
 .form_regis label {
     display: block;
     font-weight: bold;
+    font-size: var(--fontsize-subtitle);
 }
 
 .form_regis input[type="email"],
 .form_regis select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    margin-top: 4px;
+    font-size: var(--fontsize-content);
+
+    border: 1px solid var(--border-primary);
     border-radius: 5px;
-    font-size: 16px;
+
+    outline: none;
+    color: var(--text-primary);
+    background-color: transparent;
+
+    transition: 0.1s ease-in-out;
 }
 
-.form_regis span {
-    color: red;
-    font-size: 14px;
+.form_regis input[type="email"]:hover,
+.form_regis select:hover {
+    box-shadow: 0 0 15px var(--input-outline-focus-alpha), 0 0 2px var(--input-outline-focus-full) ;
+    transition: 0.2s ease-in-out;
 }
 
-.btn {
+.form_regis input[type="email"]:focus,
+.form_regis select:focus {
+    box-shadow: 0 0 15px var(--input-outline-focus-alpha), 0 0 2px var(--input-outline-focus-full) ;
+    transform: scale(102%);
+    transition: 0.2s ease-in-out;
+}
+
+.form_regis select option {
+    font-size: var(--fontsize-content);
+    background-color: var(--background-secondary);
+}
+
+.audience_form span {
+    color: var(--text-error);
+    font-size: var(--fontsize-content);
+    transition: 0.2s ease-in-out;
+}
+
+.form_regis .btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
+    width: 100%;
+    cursor: pointer;
+
     border: none;
     border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
+
+    font-size: var(--fontsize-subtitle);
+    color: #fff;
+    background-color: var(--button-primary);
+
+    transition: 0.2s ease-in-out;
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+    transition: 0.2s ease-in-out;
 }
