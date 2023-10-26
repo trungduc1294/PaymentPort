@@ -1,4 +1,4 @@
-<div class="payment_port">
+<div class="payment_port loading-container">
     <h1>Payment</h1>
     <div class="email_anouncement_content">
         <p>Thank you for your registration. Please fill in infomation to pay yourbill.</p>
@@ -29,4 +29,5 @@
         </div>
         <button wire:click="testPaySuccess">Purchase</button>
     </div>
+    @include('livewire.loading', ['eventTarget' => 'testPaySuccess'])
 </div>

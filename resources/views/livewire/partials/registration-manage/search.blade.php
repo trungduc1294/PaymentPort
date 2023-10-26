@@ -1,6 +1,7 @@
-<div class="search_section">
+<div class="search_section loading-container">
     <span class="info_box">
-        Please search by full email, include domain name (e.g. abc@gmail.com)
+        Please search by full email, include domain name (e.g. abc@gmail.com) <br>
+        If you want to delete order, please contact to hotline: 0123456789. Thank you!
     </span>
 
     <div class="error_box">
@@ -52,4 +53,5 @@
             @endif
         </table>
     </div>
+    @include('livewire.loading', ['eventTarget' => 'deleteOrder'])
 </div>

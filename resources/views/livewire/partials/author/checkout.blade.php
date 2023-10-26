@@ -1,4 +1,4 @@
-<div class="author_bill">
+<div class="author_bill loading-container">
     <h2>Your Bill</h2>
     <div class="bill_content">
         <div class="bill_content_group">
@@ -16,4 +16,5 @@
         <p>Click purchase button, we will send to you an email to confirm.</p>
     </div>
     <button type="button" wire:click.prevent="verify">Verify</button>
+    @include('livewire.loading', ['eventTarget' => 'verify' ])
 </div>
