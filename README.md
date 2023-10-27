@@ -52,3 +52,12 @@
     
     - chưa liên kết với cổng thanh toán
     - chưa deploy
+
+
+# 5. Note
+    - Đồng bộ giá lúc thanh toán sang giá VND
+    - Làm hiển thị trang thanh toán thành công và thanh toán thâất bại (chuyê đổi giá sang VND)
+    - Check lại điều kiện các bai post có thể chọn (status post)
+    - Làm thanh toán cho audience, manage registration
+    - Làm phần refun, update lại status bài post, transsaction, order, presenter.
+    - Xử lý update order status, post status trong route notification

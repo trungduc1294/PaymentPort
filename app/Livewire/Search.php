@@ -7,6 +7,9 @@ use App\Models\Post;
 use App\Models\Presenter;
 use App\Models\Price;
 use App\Models\User;
+use App\Services\OrderService;
+use App\Services\PaymentService;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Mail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -347,32 +350,43 @@ class Search extends Component
     public $user_input_code;
     public $order_id;
     public function storeToDB () {
-        // store order
-        $order = new Order();
-        $order->user_id = $this->author->id;
-        $order->total_price = $this->total_fee;
-        $order->status = 'unpaid';
-        $order->save();
 
-        // lưu order_id để lấy ra khi gửi email
-        $this->order_id = $order->id;
-
-        // store presenters
-        $index = 0;
-        foreach ($this->selectedPosts as $post) {
-            $presenter = new Presenter();
-            $presenter->user_id = $post['author_id'];
-            $presenter->post_id = $post['id'];
-            $presenter->extra_page = $this->extra_page[$index];
-            $presenter->order_id = $order->id;
-            $presenter->save();
-
-            $index++;
-        }
     }
     public function checkCode() {
-        if ($this->user_input_code === $this->random_code) {
-            $this->storeToDB();
+
+        try {
+            throw_if(
+                $this->user_input_code !== $this->random_code,
+                new \Exception("Wrong code!")
+            );
+
+            // tao du lieu order va presenter
+            $orderData = app(OrderService::class)->create([
+                // data order
+                'author_id' => $this->author->id,
+                'total_fee' => $this->total_fee,
+
+                // data presenter
+                'selectedPosts' => $this->selectedPosts,
+                'extra_page' => $this->extra_page
+            ]);
+
+            throw_if(
+                (empty($orderData['order'])),
+                new \Exception('Fail to create order')
+            );
+            $order = $orderData['order'];
+
+            // tao transaction o cong thanh toan
+            $transaction = app(PaymentService::class)->create($order->id, $this->total_fee);
+            Log::info('transaction info', [
+                $transaction
+            ]);
+            throw_if(
+                empty($transaction) || (($transaction['code'] ?? 0) !== 200),
+                new \Exception('Cannot connect to payment gateway')
+            );
+
             $this->step = 'payment';
             $this->errorMessages = '';
             $this->alert('success', 'Verify Success!', [
@@ -383,9 +397,12 @@ class Search extends Component
                 'showConfirmButton' => false,
                 'onConfirmed' => '',
             ]);
-        } else {
-            $this->errorMessages = 'Wrong code';
-            $this->alert('error', 'Wrong code!', [
+
+            $this->redirect($transaction['data']['url'] ?? 'http://failed.local');
+            return;
+        } catch (\Exception $exception) {
+            $this->errorMessages = $exception->getMessage();
+            $this->alert('error', $exception->getMessage(), [
                 'position' => 'top-end',
                 'timer' => '2000',
                 'toast' => true,
@@ -393,8 +410,8 @@ class Search extends Component
                 'showConfirmButton' => false,
                 'onConfirmed' => '',
             ]);
+            return;
         }
-
     }
 
     // STEP 6: Payment ==============================================================

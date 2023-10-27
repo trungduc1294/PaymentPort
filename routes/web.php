@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PaymentHookController;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportExcelController;
 //use App\Http\Controllers\AudienceController;
@@ -18,44 +20,48 @@ use App\Livewire\RegistrationManage;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// Home page =================================================================================================
 Route::get('/', function () {
     return view('pages.homepage');
 });
 
 
-//Audience Page Route
+//Audience Page Route ========================================================================================
 Route::get('/audience-registration-page', function () {
     return view('pages.audience.audience_page');
 });
 
-//Route::get('/author-show-posts', [AuthorController::class, 'renderPosts']);
-//Route::get('/author-info', [AuthorController::class, 'handleAuthorInfo']);
-////Route::get('/author-accept-order/{order_id}', [AuthorController::class, 'authorAcceptOrder'])->name('author.order.accept'); //cai nay dung
-//Route::get('/author-accept-order', [AuthorController::class, 'authorAcceptOrder'])->name('author.order.accept');
-
+// Author Page Route ========================================================================================
 Route::get('/author', function () {
     return view('pages.author.author_search_form');
 });
 
-
-// Registration Manage Route
+// Registration Manage Route =================================================================================
 Route::get('/registration-manage', function () {
     return view('pages.manage-registration.manage_registration');
 });
 
 Route::post('/delete-order/{id}', [RegistrationManage::class, 'deleteOrder']);
 
-
-
+//import excel file ==========================================================================================
 // import route
 Route::get('/import-excel', function () {
     return view('import');
 });
 Route::post('/import-excel', [ImportExcelController::class, 'importExcel']);
 
+// payment portal route ========================================================================================
+Route::any('/payment-notification', [PaymentHookController::class, 'index'])->name('payment.notification');
 
-// Test
-Route::get('/test-loading', function () {
-    return view('pages.test.loading');
+Route::get('/payment-cancel', function () {
+    return view('pages.payment-portal.cancel');
+})->name('payment.cancel');
+
+Route::get('/payment-return', function () {
+    return view('pages.payment-portal.return');
+})->name('payment.return');
+
+
+Route::get('/test', function () {
+    app(\App\Services\PaymentService::class)->create('BK123456', 100000);
 });
