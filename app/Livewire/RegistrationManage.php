@@ -186,7 +186,7 @@ class RegistrationManage extends Component
             // call search function to update list order
             $this->search();
             $this->errorMessage = '';
-            $this->alert('success', 'Verify successfully!', [
+            $this->alert('success', 'Delete successfully!', [
                 'position' => 'top-end',
                 'timer' => '2000',
                 'toast' => true,
@@ -197,7 +197,7 @@ class RegistrationManage extends Component
 
             $this->step = 'search';
         } else {
-            $this->errorMessage = 'Mã xác nhận không đúng';
+            $this->errorMessage = 'Your verification code is incorrect. Please try again.';
             $this->alert('error', 'Wrong code. Again!', [
                 'position' => 'top-end',
                 'timer' => '2000',
