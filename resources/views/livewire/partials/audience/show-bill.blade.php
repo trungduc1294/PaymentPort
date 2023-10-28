@@ -7,9 +7,6 @@
         <div class="bill_info">
             <span>Total Price:</span> <p>{{$total_price}}$</p>
         </div>
-        <div class="bill_info">
-            <span>Role:</span> <p>{{$role_member}}</p>
-        </div>
     </div>
     <div class="button_wrapper">
         <button wire:click.prevent="verify_bill" >Confirm</button>

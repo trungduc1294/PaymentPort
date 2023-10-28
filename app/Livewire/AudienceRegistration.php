@@ -3,6 +3,9 @@
 namespace App\Livewire;
 
 use App\Models\Price;
+use App\Services\OrderService;
+use App\Services\PaymentService;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\Order;
@@ -20,7 +23,6 @@ class AudienceRegistration extends Component
 
     // WIRE:MODEL var
     public $email;
-    public $role_member;
     public $user_code_input;
 
     // Global var
@@ -62,10 +64,8 @@ class AudienceRegistration extends Component
     }
 
     public function getPrice () {
-        if ($this->role_member == null) {
-            return 0;
-        }
-        return Price::where('price_code', $this->role_member)->first()->price;
+        $price =  Price::where('price_code', 'audience')->first()->price;
+        return $price;
     }
 
     public function handleInfoRegistration () {
@@ -128,43 +128,83 @@ class AudienceRegistration extends Component
     }
 
     // STEP 3: INPUT CODE ======================================
-    public function storeToDb () {
+    public function storeUser () {
         // Kiểm tra xem user đã tồn tại chưa
-        $user = User::where('email', $this->email)->first();
-        if (!$user) {
-            $user = new User();
-            $user->email = $this->email;
-            $user->user_type = 'audience';
-            $user->role_id = Price::where('price_code', $this->role_member)->first()->id;
-            $user->email_verified_at = now();
-            $user->save();
-        }
 
-        $order = new Order();
-        $order->user_id = $user->id;
-        $order->total_price = $this->total_price;
-        $order->status = 'unpaid';
-        $order->save();
+//
+//        $order = new Order();
+//        $order->user_id = $user->id;
+//        $order->total_price = $this->total_price;
+//        $order->status = 'unpaid';
+//        $order->save();
     }
     public function checkCode () {
-        if ($this->user_code_input == $this->random_code) {
-            $this->storeToDb();
+//        if ($this->user_code_input == $this->random_code) {
+//            $this->storeToDb();
+//
+//            $this->alert('success', 'Verify Successfully!', [
+//                'position' => 'top-end',
+//                'timer' => '2000',
+//                'toast' => true,
+//                'timerProgressBar' => true,
+//                'showConfirmButton' => false,
+//                'onConfirmed' => '',
+//            ]);
+//
+//            $this->step = 'payment';
+//            $this->errMessage = '';
+//        } else {
+//            $this->errMessage = 'Code is not correct';
+//
+//            $this->alert('error', 'Wrong code!', [
+//                'position' => 'top-end',
+//                'timer' => '2000',
+//                'toast' => true,
+//                'timerProgressBar' => true,
+//                'showConfirmButton' => false,
+//                'onConfirmed' => '',
+//            ]);
+//        }
 
-            $this->alert('success', 'Verify Successfully!', [
-                'position' => 'top-end',
-                'timer' => '2000',
-                'toast' => true,
-                'timerProgressBar' => true,
-                'showConfirmButton' => false,
-                'onConfirmed' => '',
+        try {
+            throw_if(
+                $this->user_code_input != $this->random_code,
+                \Exception::class, 'Code is not correct'
+            );
+
+            // Luu user vao db
+            $user = User::where('email', $this->email)->first();
+            if (!$user) {
+                $user = new User();
+                $user->email = $this->email;
+                $user->user_type = 'audience';
+                $user->role_id = Price::where('price_code', $this->role_member)->first()->id;
+                $user->email_verified_at = now();
+                $user->save();
+            }
+
+            // Luu order vao db
+            $order = Order::where('user_id', $user->id)->first();
+            if (!$order) {
+                $order = new Order();
+                $order->user_id = $user->id;
+                $order->total_price = $this->total_price;
+                $order->status = 'unpaid';
+                $order->save();
+            }
+
+            // tao transaction o cong thanh toan
+            $transaction = app(PaymentService::class)->create($order->id, $this->total_price);
+            Log::info('transaction info', [
+                $transaction
             ]);
+            throw_if(
+                empty($transaction) || (($transaction['code'] ?? 0) !== 200),
+                new \Exception('Cannot connect to payment gateway')
+            );
 
-            $this->step = 'payment';
             $this->errMessage = '';
-        } else {
-            $this->errMessage = 'Code is not correct';
-
-            $this->alert('error', 'Wrong code!', [
+            $this->alert('success', 'Verify Success!', [
                 'position' => 'top-end',
                 'timer' => '2000',
                 'toast' => true,
@@ -172,16 +212,30 @@ class AudienceRegistration extends Component
                 'showConfirmButton' => false,
                 'onConfirmed' => '',
             ]);
+
+            $this->redirect($transaction['data']['url'] ?? 'http://failed.local');
+            return;
+        } catch (\Exception $exception) {
+            $this->errorMessages = $exception->getMessage();
+            $this->alert('error', $exception->getMessage(), [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
+            return;
         }
     }
 
     // STEP 4: PAYMENT ======================================
     // wire:model var
-    public $full_name;
-    public $phone_number;
-    public $card_number;
-    public $expiration_date;
-    public $cvv;
+//    public $full_name;
+//    public $phone_number;
+//    public $card_number;
+//    public $expiration_date;
+//    public $cvv;
 
 //    public function paymentChecker() {
 //        if ($this->full_name == null) {
@@ -208,66 +262,66 @@ class AudienceRegistration extends Component
 //        return true;
 //    }
 
-    public function TestAccountCheck() {
-        if (
-            $this->full_name == 'Hoang Ha Trung Duc'
-            && $this->phone_number == '0332764063'
-            && $this->card_number == '0332764063'
-            && $this->expiration_date == '1111'
-            && $this->cvv == '123'
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function testPaySuccess () {
-//        $this->paymentChecker();
-        if ($this->TestAccountCheck()) {
-            $order = Order::where('user_id', User::where('email', $this->email)->first()->id)->first();
-            $order->status = 'paid';
-            $order->save();
-
-            // create a random join code and update in orders table, reference column
-            $join_code = $this->generateRandomCode();
-            $order->reference = $join_code;
-            $order->save();
-
-            // send email to user
-            $reciver_mail = $this->email;
-            Mail::send('emails.reference_code',
-                [
-                    'join_code' => $join_code
-                ]
-                , function ($email) use ($reciver_mail) {
-                    $email->to($reciver_mail)->subject('Payment success! Join Code');
-                }
-            );
-
-            $this->errMessage = '';
-            $this->step = 'success';
-
-            $this->alert('success', 'Pay Successfully!', [
-                'position' => 'top-end',
-                'timer' => '2000',
-                'toast' => true,
-                'timerProgressBar' => true,
-                'showConfirmButton' => false,
-                'onConfirmed' => '',
-            ]);
-        } else {
-            $this->errMessage = 'Payment failed. Please check your information again.';
-            $this->alert('error', 'Payment failed!', [
-                'position' => 'top-end',
-                'timer' => '2000',
-                'toast' => true,
-                'timerProgressBar' => true,
-                'showConfirmButton' => false,
-                'onConfirmed' => '',
-            ]);
-        }
-    }
+//    public function TestAccountCheck() {
+//        if (
+//            $this->full_name == 'Hoang Ha Trung Duc'
+//            && $this->phone_number == '0332764063'
+//            && $this->card_number == '0332764063'
+//            && $this->expiration_date == '1111'
+//            && $this->cvv == '123'
+//        ) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    public function testPaySuccess () {
+////        $this->paymentChecker();
+//        if ($this->TestAccountCheck()) {
+//            $order = Order::where('user_id', User::where('email', $this->email)->first()->id)->first();
+//            $order->status = 'paid';
+//            $order->save();
+//
+//            // create a random join code and update in orders table, reference column
+//            $join_code = $this->generateRandomCode();
+//            $order->reference = $join_code;
+//            $order->save();
+//
+//            // send email to user
+//            $reciver_mail = $this->email;
+//            Mail::send('emails.reference_code',
+//                [
+//                    'join_code' => $join_code
+//                ]
+//                , function ($email) use ($reciver_mail) {
+//                    $email->to($reciver_mail)->subject('Payment success! Join Code');
+//                }
+//            );
+//
+//            $this->errMessage = '';
+//            $this->step = 'success';
+//
+//            $this->alert('success', 'Pay Successfully!', [
+//                'position' => 'top-end',
+//                'timer' => '2000',
+//                'toast' => true,
+//                'timerProgressBar' => true,
+//                'showConfirmButton' => false,
+//                'onConfirmed' => '',
+//            ]);
+//        } else {
+//            $this->errMessage = 'Payment failed. Please check your information again.';
+//            $this->alert('error', 'Payment failed!', [
+//                'position' => 'top-end',
+//                'timer' => '2000',
+//                'toast' => true,
+//                'timerProgressBar' => true,
+//                'showConfirmButton' => false,
+//                'onConfirmed' => '',
+//            ]);
+//        }
+//    }
 
 
     // STEP 4.5: REPAY for order which state is unpaid ======================================

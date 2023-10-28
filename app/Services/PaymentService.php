@@ -88,7 +88,12 @@ class PaymentService
     protected function getRedirectUrl(string $routeName)
     {
         $route = route($routeName);
-        $route = Str::replace(config('app.url'), config('payment.debug_host_name'), $route);
+
+
+        if (!empty(config('payment.debug_host_name'))) {
+            $route = Str::replace(config('app.url'), config('payment.debug_host_name'), $route);
+        }
+
         return $route;
     }
 

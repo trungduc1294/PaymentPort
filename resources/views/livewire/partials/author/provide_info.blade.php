@@ -36,11 +36,8 @@
                 <label for="type_member">Choose your role:</label>
                 <select wire:model="type_member" name="type_member" id="type_member">
                     <option value="">Choose your role</option>
-                    <option value="ADM">Member</option>
-                    <option value="AD">Non-member</option>
-                    <option value="ADSM">Student-member</option>
-                    <option value="ADS">Student-non-member</option>
-                    <option value="SVNE">Vietnamese Student</option>
+                    <option value="researcher">Researcher(200$)</option>
+                    <option value="student">Student(100$)</option>
                 </select>
             </div>
         </div>

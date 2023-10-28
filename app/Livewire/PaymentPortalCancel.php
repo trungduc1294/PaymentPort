@@ -31,5 +31,4 @@ class PaymentPortalCancel extends Component
     {
         $this->order = $this->fetchTransaction($this->orderId);
     }
-
 }

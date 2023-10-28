@@ -218,48 +218,46 @@ class Search extends Component
     }
 
     // xác định price_code của author dựa vào số lượng bài post và loại thành viên
-    public function determineTypeMember ($totalPost, $type_member) {
-        if ($type_member === 'ADM' && $totalPost === 1) {
-            return "E1";
-        }
-        if ($type_member === 'ADM' && $totalPost === 2) {
-            return "E2";
-        }
-        if ($type_member === 'ADM' && $totalPost === 3) {
-            return "E3";
-        }
-        if ($type_member === "AD" && $totalPost === 1) {
-            return "E4";
-        }
-        if ($type_member === "AD" && $totalPost === 2) {
-            return "E5";
-        }
-        if ($type_member === "AD" && $totalPost === 3) {
-            return "E6";
-        }
-        if ($type_member === "ADSM" && $totalPost === 1) {
-            return "SE1";
-        }
-        if ($type_member === "ADS" && $totalPost === 1) {
-            return "SE2";
-        }
-    }
+//    public function determineTypeMember ($totalPost, $type_member) {
+//        if ($type_member === 'ADM' && $totalPost === 1) {
+//            return "E1";
+//        }
+//        if ($type_member === 'ADM' && $totalPost === 2) {
+//            return "E2";
+//        }
+//        if ($type_member === 'ADM' && $totalPost === 3) {
+//            return "E3";
+//        }
+//        if ($type_member === "AD" && $totalPost === 1) {
+//            return "E4";
+//        }
+//        if ($type_member === "AD" && $totalPost === 2) {
+//            return "E5";
+//        }
+//        if ($type_member === "AD" && $totalPost === 3) {
+//            return "E6";
+//        }
+//        if ($type_member === "ADSM" && $totalPost === 1) {
+//            return "SE1";
+//        }
+//        if ($type_member === "ADS" && $totalPost === 1) {
+//            return "SE2";
+//        }
+//    }
 
 
     // Tinh phi tham gia cua author (chua tinh extra page)
     public function calAuthorFee () {
-        return Price::
-        where(
-            'price_code',
-            $this->determineTypeMember($this->totalPosts, $this->type_member
-            ))->first()->price;
+        $priceCode = $this->type_member;
+        $totalPost = $this->totalPosts;
+        $price = Price::where('price_code', $priceCode)->first()->price;
+        return $totalPost * $price;
     }
 
     // Tinh phi extra page
     public function calExtraPageFee () {
         return Price::
-            where('price_code', 'EP')->first()->price
-            * $this->calculateTotalExtraPage();
+            where('price_code', 'EP')->first()->price * $this->calculateTotalExtraPage();
     }
 
     // Tinh tong tien
@@ -387,7 +385,6 @@ class Search extends Component
                 new \Exception('Cannot connect to payment gateway')
             );
 
-            $this->step = 'payment';
             $this->errorMessages = '';
             $this->alert('success', 'Verify Success!', [
                 'position' => 'top-end',
@@ -416,54 +413,54 @@ class Search extends Component
 
     // STEP 6: Payment ==============================================================
 // wire:model var
-    public $full_name;
-    public $phone_number;
-    public $card_number;
-    public $expiration_date;
-    public $cvv;
+//    public $full_name;
+//    public $phone_number;
+//    public $card_number;
+//    public $expiration_date;
+//    public $cvv;
 
-    public function TestAccountCheck() {
-        if (
-            $this->full_name == 'Hoang Ha Trung Duc'
-            && $this->phone_number == '0332764063'
-            && $this->card_number == '0332764063'
-            && $this->expiration_date == '1111'
-            && $this->cvv == '123'
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    public function TestAccountCheck() {
+//        if (
+//            $this->full_name == 'Hoang Ha Trung Duc'
+//            && $this->phone_number == '0332764063'
+//            && $this->card_number == '0332764063'
+//            && $this->expiration_date == '1111'
+//            && $this->cvv == '123'
+//        ) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
-    public function testPaySuccess () {
-        if ($this->TestAccountCheck()) {
-            // update order status
-            $order = Order::query()->find($this->order_id);
-            $order->status = 'paid';
-            $order->save();
-
-            // create a random join code and update in orders table, reference column
-            $join_code = $this->generateRandomCode();
-            $order->reference = $join_code;
-            $order->save();
-
-            // send email to author
-            $reciver_mail = $this->author->email;
-            Mail::send('emails.reference_code',
-                [
-                    'join_code' => $join_code
-                ]
-                , function ($email) use ($reciver_mail) {
-                    $email->to($reciver_mail)->subject('Payment Success, Join Code');
-                }
-            );
-
-            $this->step = 'success';
-        } else {
-            $this->errorMessages = 'Wrong card information';
-        }
-    }
+//    public function testPaySuccess () {
+//        if ($this->TestAccountCheck()) {
+//            // update order status
+//            $order = Order::query()->find($this->order_id);
+//            $order->status = 'paid';
+//            $order->save();
+//
+//            // create a random join code and update in orders table, reference column
+//            $join_code = $this->generateRandomCode();
+//            $order->reference = $join_code;
+//            $order->save();
+//
+//            // send email to author
+//            $reciver_mail = $this->author->email;
+//            Mail::send('emails.reference_code',
+//                [
+//                    'join_code' => $join_code
+//                ]
+//                , function ($email) use ($reciver_mail) {
+//                    $email->to($reciver_mail)->subject('Payment Success, Join Code');
+//                }
+//            );
+//
+//            $this->step = 'success';
+//        } else {
+//            $this->errorMessages = 'Wrong card information';
+//        }
+//    }
 
 
     // STEP 7 Successs ======================================

@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Presenter;
+use App\Services\PaymentService;
+use Illuminate\Support\Facades\Log;
 use Request;
 use App\Models\Order;
 use App\Models\User;
@@ -105,7 +107,45 @@ class RegistrationManage extends Component
 
     // Step 2B: show payment portal ----------------------------------------------------------------------------
     public function showPaymentPort($id) {
-        $this->step = 'payment_portal';
+        try {
+            $order = Order::find($id);
+            throw_if(
+                (empty($order)),
+                new \Exception('Fail to get order')
+            );
+            $transaction = app(PaymentService::class)->create($order->id, $order->total_price);
+            dd($transaction);
+            Log::info('transaction info', [
+                $transaction
+            ]);
+            throw_if(
+                empty($transaction) || (($transaction['code'] ?? 0) !== 200),
+                new \Exception('Cannot connect to payment gateway')
+            );
+            $this->errorMessages = '';
+            $this->alert('success', 'Verify Success!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
+
+            $this->redirect($transaction['data']['url'] ?? 'http://failed.local');
+            return;
+        } catch (\Exception $exception) {
+            $this->errorMessages = $exception->getMessage();
+            $this->alert('error', $exception->getMessage(), [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
+            return;
+        }
     }
 
     // Step 3B: confirm payment portal ----------------------------------------------------------------------------

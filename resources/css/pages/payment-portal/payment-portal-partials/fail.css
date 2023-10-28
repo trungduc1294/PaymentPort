@@ -1,0 +1,91 @@
+.payment-fail{
+    width: 50%;
+    margin: 0px auto;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-image: var(--background-form);
+    box-shadow: var(--box-shadow-primary);
+}
+
+.payment-fail .title{
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.payment-fail .title h1{
+    font-size: var(--fontsize-title);
+    font-weight: bold;
+    color: var(--text-error);
+    margin-bottom: 10px;
+}
+
+.payment-fail .title p{
+    font-size: var(--fontsize-subtitle);
+    color: var(--text-error);
+    font-weight: normal;
+}
+
+.payment-fail .order-content {
+    padding: 20px 60px;
+}
+
+.payment-fail .order-content h2 {
+    font-size: var(--fontsize-title);
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.payment-fail .order-content .order-info-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.payment-fail .order-content .order-info-group span {
+    font-size: var(--fontsize-subtitle);
+    color: var(--text-secondary);
+    font-weight: normal;
+}
+
+.payment-fail .order-content .order-info-group p {
+    font-size: var(--fontsize-subtitle);
+    font-weight: bold;
+    color: var(--button-primary);
+
+}
+
+.payment-fail .payment-more-info {
+    margin-top: 20px;
+}
+
+.payment-fail .payment-more-info p {
+    font-size: var(--fontsize-content);
+    color: var(--text-error);
+    font-weight: normal;
+}
+
+.payment-fail .payment-more-info a {
+    /* button css */
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: var(--fontsize-content);
+    font-weight: bold;
+    color: var(--text-white);
+    background-color: var(--button-primary);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 20px;
+    
+}
+
+.payment-fail .payment-more-info a:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+    transition: all 0.3s ease-in-out;
+
+}

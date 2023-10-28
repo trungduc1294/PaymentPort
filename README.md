@@ -61,3 +61,10 @@
     - Làm thanh toán cho audience, manage registration
     - Làm phần refun, update lại status bài post, transsaction, order, presenter.
     - Xử lý update order status, post status trong route notification
+
+
+# 6. Note 2
+    - Sửa trong phần manage 
+    - cos 2 nút cancelbill và delete. delete cho các order unpaid, còn cancel bill cho các order paid
+    - Nếu delete thì vẫn giữ nguyên logic, còn cancel bill thì phải update lại status của post về active để có thể thanh toán lại
+

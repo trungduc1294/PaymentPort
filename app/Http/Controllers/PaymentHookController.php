@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Traits\PaymentTrait;
+use Illuminate\Support\Facades\Log;
+use Mail;
 
 class PaymentHookController extends Controller
 {
     use PaymentTrait;
+
+
+
+
     public function index()
     {
 //        {
@@ -20,11 +26,17 @@ class PaymentHookController extends Controller
 
         $data = request()->all();
 
+        Log::info("Payment MOTIFICATION", $data);
+
         // 1. Log du lieu gui ve
         // 2. Validate data xem co order id hay khong
-            // NMeu co: fetch transsaction
+        // NMeu co: fetch transsaction
 
-        $this->fetchTransaction($data['order_id']);
+        // 3. Neu order status = paid => gui mail
+        if (!empty($data['order_id'])) {
+            $this->fetchTransaction($data['order_id']);
+        }
+
         return response()->json([
             'status' => 'success'
         ]);
