@@ -32,7 +32,7 @@ class PaymentService
          * 4. Tao record trong bang payment_transactions chua thong tin lien ket den order hien tai
          * 5. Sau khi tao transaction xong, redirect user den url cua cong thanh toan trong api tra ve
          */
-        $convertedAmount = $amount*24000;
+        $convertedAmount = $amount*config('payment.exchange.usd');
         $checksum = md5(implode( "|" , [
             config('payment.access_code'),
             $convertedAmount,

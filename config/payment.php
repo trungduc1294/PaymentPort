@@ -8,4 +8,7 @@ return [
     "cancel_url" => env('PAYMENT_CANCEL_URL', 'payment.cancel'),
     "notification_url" => env('PAYMENT_NOTIFICATION_URL', 'payment.notification'),
     "debug_host_name" => env('PAYMENT_DEBUG_HOST_NAME', ''),
+    "exchange" => [
+        "usd" => env('PAYMENT_EXCHANGE_USD', 23500),
+    ],
 ];
