@@ -85,8 +85,38 @@ trait PaymentTrait
 
     public function fetchTransactionReturn(int $orderId)
     {
+        // Lấy thông tin thanh toán từ payment service
+        $payment = app(PaymentService::class)->detail($orderId);
+        Log::info("Order result", [$payment]);
+
+        // Lưu thông tin thanh toán vào transaction
+        $paymentData = $payment['data'];
+
         // Lấy thông tin order
         $order = Order::findOrFail($orderId);
+        $transaction = optional($order)->transaction;
+        if (empty($transaction)) {
+            $transaction = new Transaction();
+        }
+
+        // Cập nhật thông tin thanh toán vào transaction
+        $transactionData = array_merge(
+            $transaction->toArray(),
+            $paymentData
+        );
+        $transaction->fill($transactionData)->save();
+
+        // Thanh toan thanh cong => update trang thai order
+        if ($transaction->payment_status === PaymentStatusEnum::PAYMENT_SUCCESS->value) {
+            $order->update(['status' => OrderStatusEnum::PAID->value]);
+        }
+
+        // Cập nhật status của các post đã thanh toán thành unactive
+        if ($order->status === 'paid') {
+            $postIdList = Presenter::where('order_id', $order->id)->pluck('post_id')->toArray();
+            Post::whereIn('id', $postIdList)->update(['status' => 'unactive']);
+        }
+
         return $order->load('transaction')->toArray();
     }
 }

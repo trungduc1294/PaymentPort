@@ -43,22 +43,26 @@ class AudienceRegistration extends Component
             // Check user exits
             $user = User::where('email', $this->email)->first();
             if ($user && $user->user_type == "author") {
-                $this->errMessage = 'You are an author? Use author form. Unless, use another email.';
+                $this->errMessage = 'Are you an author? Please use the author \'s form. If not, use a different email.';
                 return false;
             }
             elseif ($user && $user->user_type == "audience") {
                 $order = Order::where('user_id', $user->id)->first();
                 if ($order && $order->status == 'paid') {
-                    $this->errMessage = 'You have already registered';
+                    $this->errMessage = 'This email has already been registered.';
                     return false;
                 }
                 if ($order && $order->status == 'unpaid') {
-                    $this->errMessage = 'You have already registered but not paid yet. Go to Manage Registration to delete first.';
+                    $this->errMessage = 'Your email has been registered, but payment has not been completed. Please go to the \'Manage Registration\' page to cancel your order first.';
                     return false;
                 }
             }
+            // Check email format
+            if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+                $this->errMessage = 'Email is not valid.';
+                return false;
+            }
         }
-
         $this->errMessage = '';
         return true;
     }
@@ -101,7 +105,6 @@ class AudienceRegistration extends Component
     public $random_code;
     public function verify_bill () {
         $this->step = 'input-code';
-
         // send email to user
         $reciver_mail = $this->email;
         $this->random_code = $this->generateRandomCode();
@@ -115,7 +118,7 @@ class AudienceRegistration extends Component
         );
     }
     public function cancel_bill () {
-        $this->alert('error', 'Delete successfully!', [
+        $this->alert('warning', 'Cancel successfully!', [
             'position' => 'top-end',
             'timer' => '2000',
             'toast' => true,
@@ -123,53 +126,15 @@ class AudienceRegistration extends Component
             'showConfirmButton' => false,
             'onConfirmed' => '',
         ]);
-
         $this->step = 'registration-form';
     }
 
     // STEP 3: INPUT CODE ======================================
-    public function storeUser () {
-        // Kiểm tra xem user đã tồn tại chưa
-
-//
-//        $order = new Order();
-//        $order->user_id = $user->id;
-//        $order->total_price = $this->total_price;
-//        $order->status = 'unpaid';
-//        $order->save();
-    }
     public function checkCode () {
-//        if ($this->user_code_input == $this->random_code) {
-//            $this->storeToDb();
-//
-//            $this->alert('success', 'Verify Successfully!', [
-//                'position' => 'top-end',
-//                'timer' => '2000',
-//                'toast' => true,
-//                'timerProgressBar' => true,
-//                'showConfirmButton' => false,
-//                'onConfirmed' => '',
-//            ]);
-//
-//            $this->step = 'payment';
-//            $this->errMessage = '';
-//        } else {
-//            $this->errMessage = 'Code is not correct';
-//
-//            $this->alert('error', 'Wrong code!', [
-//                'position' => 'top-end',
-//                'timer' => '2000',
-//                'toast' => true,
-//                'timerProgressBar' => true,
-//                'showConfirmButton' => false,
-//                'onConfirmed' => '',
-//            ]);
-//        }
-
         try {
             throw_if(
                 $this->user_code_input != $this->random_code,
-                \Exception::class, 'Code is not correct'
+                \Exception::class, 'The confirmation code is incorrect.'
             );
 
             // Luu user vao db
@@ -178,7 +143,7 @@ class AudienceRegistration extends Component
                 $user = new User();
                 $user->email = $this->email;
                 $user->user_type = 'audience';
-                $user->role_id = Price::where('price_code', $this->role_member)->first()->id;
+                $user->role_id = 0;
                 $user->email_verified_at = now();
                 $user->save();
             }
@@ -228,102 +193,5 @@ class AudienceRegistration extends Component
             return;
         }
     }
-
-    // STEP 4: PAYMENT ======================================
-    // wire:model var
-//    public $full_name;
-//    public $phone_number;
-//    public $card_number;
-//    public $expiration_date;
-//    public $cvv;
-
-//    public function paymentChecker() {
-//        if ($this->full_name == null) {
-//            $this->errMessage = 'Full name must not be null';
-//            return false;
-//        }
-//        elseif ($this->phone_number == null) {
-//            $this->errMessage = 'Phone number must not be null';
-//            return false;
-//        }
-//        elseif ($this->card_number == null) {
-//            $this->errMessage = 'Card number must not be null';
-//            return false;
-//        }
-//        elseif ($this->expiration_date == null) {
-//            $this->errMessage = 'Expiration date must not be null';
-//            return false;
-//        }
-//        elseif ($this->cvv == null) {
-//            $this->errMessage = 'CVV must not be null';
-//            return false;
-//        }
-//        $this->errMessage = '';
-//        return true;
-//    }
-
-//    public function TestAccountCheck() {
-//        if (
-//            $this->full_name == 'Hoang Ha Trung Duc'
-//            && $this->phone_number == '0332764063'
-//            && $this->card_number == '0332764063'
-//            && $this->expiration_date == '1111'
-//            && $this->cvv == '123'
-//        ) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    public function testPaySuccess () {
-////        $this->paymentChecker();
-//        if ($this->TestAccountCheck()) {
-//            $order = Order::where('user_id', User::where('email', $this->email)->first()->id)->first();
-//            $order->status = 'paid';
-//            $order->save();
-//
-//            // create a random join code and update in orders table, reference column
-//            $join_code = $this->generateRandomCode();
-//            $order->reference = $join_code;
-//            $order->save();
-//
-//            // send email to user
-//            $reciver_mail = $this->email;
-//            Mail::send('emails.reference_code',
-//                [
-//                    'join_code' => $join_code
-//                ]
-//                , function ($email) use ($reciver_mail) {
-//                    $email->to($reciver_mail)->subject('Payment success! Join Code');
-//                }
-//            );
-//
-//            $this->errMessage = '';
-//            $this->step = 'success';
-//
-//            $this->alert('success', 'Pay Successfully!', [
-//                'position' => 'top-end',
-//                'timer' => '2000',
-//                'toast' => true,
-//                'timerProgressBar' => true,
-//                'showConfirmButton' => false,
-//                'onConfirmed' => '',
-//            ]);
-//        } else {
-//            $this->errMessage = 'Payment failed. Please check your information again.';
-//            $this->alert('error', 'Payment failed!', [
-//                'position' => 'top-end',
-//                'timer' => '2000',
-//                'toast' => true,
-//                'timerProgressBar' => true,
-//                'showConfirmButton' => false,
-//                'onConfirmed' => '',
-//            ]);
-//        }
-//    }
-
-
-    // STEP 4.5: REPAY for order which state is unpaid ======================================
 }
 

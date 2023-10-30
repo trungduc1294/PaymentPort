@@ -8,11 +8,5 @@
     @elseif($step === 'input-code')
         @include('livewire.partials.audience.confirm-code');
 
-    @elseif($step === 'payment')
-        @include('livewire.partials.audience.payment');
-
-    @elseif($step === 'success')
-        @include('livewire.partials.audience.success');
-
     @endif
 </div>

@@ -14,13 +14,5 @@
     @elseif($step === 'check_code')
         @include('livewire.partials.author.checkcode');
 
-    {{-- STEP 6 Payment--}}
-    @elseif($step === 'payment')
-        @include('livewire.partials.author.payment');
-
-    {{-- STEP 7 Success--}}
-    @elseif($step === 'success')
-        @include('livewire.partials.author.success');
-
     @endif
 </div>

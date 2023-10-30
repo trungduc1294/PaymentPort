@@ -101,7 +101,7 @@
 }
 
 /* Style for the delete button */
-.list_orders button[type="submit"] {
+.list_orders button {
     background-color: #dc3545;
     color: var(--text-white);
     border: none;
@@ -111,14 +111,10 @@
     font-size: var(--fontsize-content);
 }
 
-.list_orders .purchase_btn {
-    padding: 5px 10px;
-    background-color: #00ff22;
-    color: var(--text-white);
-    font-size: var(--fontsize-content);
-    margin-top: 4px;
+.list_orders button:hover {
+    background-color: #c82333;
 }
 
-.list_orders button[type="submit"]:hover {
-    background-color: #c82333;
+.list_orders .deleteBtn {
+    background-color: #dc9435;
 }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Post;
 use App\Models\Presenter;
 use App\Services\PaymentService;
 use Illuminate\Support\Facades\Log;
@@ -90,14 +91,14 @@ class RegistrationManage extends Component
             [
                 'code' => $this->random_code,
             ],
-            function ($message) use ($user_email) {
-                $message->to($user_email);
-                $message->subject('Confimation Code');
+            function ($email) use ($user_email) {
+                $email->to($user_email)->subject('Confimation Code');
             }
         );
 
     }
 
+    // DELETE BUTTON CLICK CALL THIS FUNCTION
     public function deleteOrder ($id) {
         // $id = order_id (not user_id
         $this->delete_order_id = $id;
@@ -105,105 +106,11 @@ class RegistrationManage extends Component
         $this->step = 'confirm_code';
     }
 
-    // Step 2B: show payment portal ----------------------------------------------------------------------------
-    public function showPaymentPort($id) {
-        try {
-            $order = Order::find($id);
-            throw_if(
-                (empty($order)),
-                new \Exception('Fail to get order')
-            );
-            $transaction = app(PaymentService::class)->create($order->id, $order->total_price);
-            dd($transaction);
-            Log::info('transaction info', [
-                $transaction
-            ]);
-            throw_if(
-                empty($transaction) || (($transaction['code'] ?? 0) !== 200),
-                new \Exception('Cannot connect to payment gateway')
-            );
-            $this->errorMessages = '';
-            $this->alert('success', 'Verify Success!', [
-                'position' => 'top-end',
-                'timer' => '2000',
-                'toast' => true,
-                'timerProgressBar' => true,
-                'showConfirmButton' => false,
-                'onConfirmed' => '',
-            ]);
-
-            $this->redirect($transaction['data']['url'] ?? 'http://failed.local');
-            return;
-        } catch (\Exception $exception) {
-            $this->errorMessages = $exception->getMessage();
-            $this->alert('error', $exception->getMessage(), [
-                'position' => 'top-end',
-                'timer' => '2000',
-                'toast' => true,
-                'timerProgressBar' => true,
-                'showConfirmButton' => false,
-                'onConfirmed' => '',
-            ]);
-            return;
-        }
-    }
-
-    // Step 3B: confirm payment portal ----------------------------------------------------------------------------
-    public $full_name;
-    public $phone_number;
-    public $card_number;
-    public $expiration_date;
-    public $cvv;
-
-    public function TestAccountCheck() {
-        if (
-            $this->full_name == 'Hoang Ha Trung Duc'
-            && $this->phone_number == '0332764063'
-            && $this->card_number == '0332764063'
-            && $this->expiration_date == '1111'
-            && $this->cvv == '123'
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function confirmPayment() {
-        if ($this->TestAccountCheck()) {
-            $order = Order::where('user_id', User::where('email', $this->searchValue)->first()->id)->first();
-            $order->status = 'paid';
-            $order->save();
-
-            // create a random join code and update in orders table, reference column
-            $join_code = $this->generateRandomCode();
-            $order->reference = $join_code;
-            $order->save();
-
-            // send email to user
-            $reciver_mail = $this->searchValue;
-            Mail::send('emails.reference_code',
-                [
-                    'join_code' => $join_code
-                ]
-                , function ($email) use ($reciver_mail) {
-                    $email->to($reciver_mail)->subject('Payment success! Join Code');
-                }
-            );
-
-            $this->errorMessage = '';
-            $this->step = 'success';
-        } else {
-            $this->errorMessage = 'Payment failed. Please check your information again.';
-            $this->alert('error', 'Payment fail!', [
-                'position' => 'top-end',
-                'timer' => '2000',
-                'toast' => true,
-                'timerProgressBar' => true,
-                'showConfirmButton' => false,
-                'onConfirmed' => '',
-            ]);
-        }
+    // CANCEL BILL CLICK CALL THIS FUNCTION
+    public function cancelBill ($id) {
+        $this->delete_order_id = $id;
+        $this->sendCodeEmail();
+        $this->step = 'confirm_cancel';
     }
 
     // Step3: CONFIRM CODE TO DELETE ORDER----------------------------------
@@ -227,6 +134,59 @@ class RegistrationManage extends Component
             $this->search();
             $this->errorMessage = '';
             $this->alert('success', 'Delete successfully!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
+
+            $this->step = 'search';
+        } else {
+            $this->errorMessage = 'Your verification code is incorrect. Please try again.';
+            $this->alert('error', 'Wrong code. Again!', [
+                'position' => 'top-end',
+                'timer' => '2000',
+                'toast' => true,
+                'timerProgressBar' => true,
+                'showConfirmButton' => false,
+                'onConfirmed' => '',
+            ]);
+            $this->step = 'search';
+        }
+    }
+
+    // CONFIRM TO CANCEL BILL CLICK CALL THIS FUNCTION
+    // Buoc 1: so sanh code
+    // Buoc 2: xoa order
+    // Buoc 3: xoa presenter
+    // Buoc 3: cap nhat trang thai post ve active de hien thi dang ky lai
+    public function confirmCanCel() {
+        if ($this->confirm_code == $this->random_code) {
+
+            $order = Order::find($this->delete_order_id);
+
+            $presenters = Presenter::where('order_id', $order->id)->get();
+
+            // update status of post to active and delete presenter
+            if ($presenters) {
+                foreach ($presenters as $presenter) {
+                    $post = Post::find($presenter->post_id);
+                    $post->status = 'active';
+                    $post->save();
+
+                    $presenter->delete();
+                }
+            }
+
+            // delete order
+            $order->delete();
+
+            // call search function to update list order
+            $this->search();
+            $this->errorMessage = '';
+            $this->alert('success', 'Cancel successfully!', [
                 'position' => 'top-end',
                 'timer' => '2000',
                 'toast' => true,

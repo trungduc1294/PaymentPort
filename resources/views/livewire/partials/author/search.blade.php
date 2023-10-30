@@ -1,19 +1,19 @@
 <div class="author_search">
     <div class="title">
-        <h1>Newpapers List</h1>
-        <p>Search by author name and choose your newpapers.</p>
+        <h1>The payment page for presenter.</h1>
+        <p>Search by author name and select your posts.</p>
     </div>
 
     <!-- Search input -->
     <div class="search_box">
-        <label for="author-search">Search Author:</label>
+        <label for="author-search">Author's name:</label>
         <input type="text" wire:model="keyword" id="author-search" placeholder="Enter author name" @change="$wire.search()">
     </div>
 
 
 
     <!-- Data table -->
-    <form action="{{url('/author-info')}}" method="" enctype="multipart/form-data">
+    <form action="{{url('/author-info')}}" enctype="multipart/form-data">
         @csrf
         <table>
             <thead>
@@ -22,7 +22,7 @@
                 <th>Author</th>
                 <th>Title</th>
                 <th>Email</th>
-                <th>Choose to Purchase</th>
+                <th>Add to pay.</th>
             </tr>
             </thead>
             <tbody id="author-data">

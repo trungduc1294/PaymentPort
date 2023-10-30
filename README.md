@@ -68,3 +68,8 @@
     - cos 2 nút cancelbill và delete. delete cho các order unpaid, còn cancel bill cho các order paid
     - Nếu delete thì vẫn giữ nguyên logic, còn cancel bill thì phải update lại status của post về active để có thể thanh toán lại
 
+# 7. Looix
+    - Đôi khi thanh toán thành công nhuưng trả v lỗi, ảnh như trong thanh toán
+    - chạy từ đầu bằng ngrok gây lỗi thông tin thanh toán không hợp lệ khi chuyển đến cổng thanh toán. 
+    => Lỗi do gọi hàm fetchTransactionReturn() maf k phair fetchTransaction() trong returnControllerLivewire. 
+    => Sửa lại fetchTransactionReturn() thành fetchTransaction() thì ok nhunwg bij gửi 2 email success

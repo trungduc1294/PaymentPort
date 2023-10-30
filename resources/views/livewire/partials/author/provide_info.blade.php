@@ -4,7 +4,7 @@
     </div>
     <div class="body-content">
         <div class="selected_post_section">
-            <h2>Your Post list:</h2>
+            <h2>Please enter a page number that exceeds the allowed limit for each post:</h2>
             <ul>
                 <?php $index = 0; ?>
                 @foreach($selectedPosts as $post)
@@ -28,7 +28,7 @@
                 <p>{{$author->email}}</p>
             </div>
             <div class="info_group">
-                <span>Number of newpaper: </span>
+                <span>Number of posts: </span>
                 <p>{{$totalPosts}}</p>
             </div>
 

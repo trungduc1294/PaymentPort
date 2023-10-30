@@ -29,7 +29,9 @@ class PaymentPortalReturn extends Component
 
     public function fetch()
     {
-        $this->order = $this->fetchTransactionReturn($this->orderId);
+        $this->order = $this->fetchTransaction($this->orderId);
+//        $this->order = $this->fetchTransactionReturn($this->orderId);
+
     }
 
 }
