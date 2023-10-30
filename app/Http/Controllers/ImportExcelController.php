@@ -14,8 +14,7 @@ class ImportExcelController extends Controller
     public function importExcel(Request $request)
     {
         // logic to import excel file into database with model ExcelData
-        $path = request()->file('file')->getRealPath();
-        Excel::import(new PostsImport, $path);
+        Excel::import(new PostsImport, request()->file('file'));
 
         // handle data from ExcelData to User and Post
         $excelData = ExcelData::all();

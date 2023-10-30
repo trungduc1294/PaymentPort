@@ -13,7 +13,7 @@ class PaymentPortalReturn extends Component
 {
     use PaymentTrait;
 
-    public int $orderId;
+    public string $orderId;
     public array $order;
 
     public function mount()
@@ -31,7 +31,6 @@ class PaymentPortalReturn extends Component
     {
         $this->order = $this->fetchTransactionReturn($this->orderId);
 //        $this->order = $this->fetchTransactionReturn($this->orderId);
-
     }
 
 }

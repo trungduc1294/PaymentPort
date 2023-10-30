@@ -159,7 +159,7 @@ class AudienceRegistration extends Component
             }
 
             // tao transaction o cong thanh toan
-            $transaction = app(PaymentService::class)->create($order->id, $this->total_price);
+            $transaction = app(PaymentService::class)->create($order->order_uid, $this->total_price);
             Log::info('transaction info', [
                 $transaction
             ]);

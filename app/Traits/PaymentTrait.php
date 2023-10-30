@@ -26,7 +26,7 @@ trait PaymentTrait
         return $code;
     }
 
-    public function fetchTransaction(int $orderId)
+    public function fetchTransaction($orderId)
     {
         // Lấy thông tin thanh toán từ payment service
         $payment = app(PaymentService::class)->detail($orderId);
@@ -36,7 +36,7 @@ trait PaymentTrait
         $paymentData = $payment['data'];
 
         // Lấy thông tin order
-        $order = Order::findOrFail($orderId);
+        $order = Order::where('order_uid', $orderId)->firstOrFail();
         $transaction = optional($order)->transaction;
         if (empty($transaction)) {
             $transaction = new Transaction();
@@ -83,7 +83,7 @@ trait PaymentTrait
         return $order->load('transaction')->toArray();
     }
 
-    public function fetchTransactionReturn(int $orderId)
+    public function fetchTransactionReturn($orderId)
     {
         // Lấy thông tin thanh toán từ payment service
         $payment = app(PaymentService::class)->detail($orderId);
@@ -93,7 +93,7 @@ trait PaymentTrait
         $paymentData = $payment['data'];
 
         // Lấy thông tin order
-        $order = Order::findOrFail($orderId);
+        $order = Order::where('order_uid', $orderId)->firstOrFail();
         $transaction = optional($order)->transaction;
         if (empty($transaction)) {
             $transaction = new Transaction();
@@ -102,7 +102,8 @@ trait PaymentTrait
         // Cập nhật thông tin thanh toán vào transaction
         $transactionData = array_merge(
             $transaction->toArray(),
-            $paymentData
+            $paymentData,
+            ['order_id' => $order->id]
         );
         $transaction->fill($transactionData)->save();
 
@@ -118,5 +119,6 @@ trait PaymentTrait
         }
 
         return $order->load('transaction')->toArray();
+
     }
 }

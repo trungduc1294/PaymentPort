@@ -13,11 +13,11 @@
                 </div>
                 <div class="order-info-group">
                     <span>Total pay: </span>
-                    <p>{{$order['total_price']}}$</p>
+                    <p>{{ number_format($order['total_price'])  }}$</p>
                 </div>
                 <div class="order-info-group">
                     <span>Total pay: </span>
-                    <p>{{$order['transaction']['amount']}}VND</p>
+                    <p>{{ number_format($order['transaction']['amount'])  }}VND</p>
                 </div>
                 <div class="order-info-group">
                     <span>Payment Status: </span>

@@ -9,6 +9,7 @@ use App\Models\Price;
 use App\Models\User;
 use App\Services\OrderService;
 use App\Services\PaymentService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Mail;
@@ -324,6 +325,7 @@ class Search extends Component
     public function checkCode() {
 
         try {
+            DB::beginTransaction();
             throw_if(
                 $this->user_input_code !== $this->random_code,
                 new \Exception("Wrong verification code.")
@@ -347,7 +349,7 @@ class Search extends Component
             $order = $orderData['order'];
 
             // tao transaction o cong thanh toan
-            $transaction = app(PaymentService::class)->create($order->id, $this->total_fee);
+            $transaction = app(PaymentService::class)->create($order->order_uid, $this->total_fee);
             Log::info('transaction info', [
                 $transaction
             ]);
@@ -366,9 +368,12 @@ class Search extends Component
                 'onConfirmed' => '',
             ]);
 
+            DB::commit();
+
             $this->redirect($transaction['data']['url'] ?? 'http://failed.local');
             return;
         } catch (\Exception $exception) {
+            DB::rollBack();
             $this->errorMessages = $exception->getMessage();
             $this->alert('error', $exception->getMessage(), [
                 'position' => 'top-end',

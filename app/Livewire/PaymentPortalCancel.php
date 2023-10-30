@@ -13,7 +13,7 @@ class PaymentPortalCancel extends Component
 {
     use PaymentTrait;
 
-    public int $orderId;
+    public string $orderId;
     public array $order;
 
     public function mount()
