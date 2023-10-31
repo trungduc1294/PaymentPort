@@ -13,7 +13,7 @@
     font-size: var(--fontsize-title);
     text-align: center;
     margin-bottom: 40px;
-    color: var(--text-primary);
+    color: var(--ichst-primary);
 
     cursor: default;
 }
@@ -37,11 +37,12 @@
 .bill_info span {
     font-weight: bold;
     font-size: var(--fontsize-subtitle);
+    color: var(--ichst-primary-70);
 }
 
 .bill_info p {
     font-weight: normal;
-    color: var(--text-secondary);
+    color: var(--ichst-primary-70);
 }
 
 .button_wrapper {
@@ -53,7 +54,7 @@ button {
     padding: 10px 20px;
     margin-right: 10px;
 
-    background-color: var(--button-primary);
+    background-color: var(--ichst-primary);
     color: var(--text-white);
     font-size: var(--fontsize-subtitle);
     cursor: pointer;
@@ -65,7 +66,7 @@ button {
 }
 
 button:hover {
-    background-color: var(--button-hover);
+    background-color: var(--ichst-primary-70);
     transform: translate(0, -2px);
     transition: 0.1s ease-in-out;
 }

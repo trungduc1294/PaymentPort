@@ -12,6 +12,7 @@
 
 .verify_by_code h3 {
     font-size: var(--fontsize-title);
+    color: var(--ichst-primary);
     text-align: center;
     margin-bottom: 20px;
 }
@@ -53,15 +54,15 @@
 .verify_by_code button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
     color: var(--text-white);
     border: none;
     border-radius: 5px;
     font-size: var(--fontsize-content);
     cursor: pointer;
     margin-top: 10px;
+    background-color: var(--ichst-primary);
 }
 
 .verify_by_code button:hover {
-    background-color: var(--button-hover);
+    background-color: var(--ichst-primary-70);
 }

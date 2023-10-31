@@ -14,6 +14,7 @@
 
 .check_code h3 {
     font-size: var(--fontsize-title);
+    color: var(--ichst-primary);
     margin-bottom: 20px;
 }
 
@@ -60,7 +61,7 @@
 .check_code  button {
     width: 100%;
     padding: 10px 20px;
-    background-color: var(--button-primary);
+    background-color: var(--ichst-primary);
     color: var(--text-white);
     border: none;
     border-radius: 5px;
@@ -70,5 +71,5 @@
 }
 
 .check_code button:hover {
-    background-color: var(--button-hover);
+    background-color: var(--ichst-primary-70);
 }

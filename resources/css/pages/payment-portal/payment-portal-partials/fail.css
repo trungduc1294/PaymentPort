@@ -34,7 +34,7 @@
 .payment-fail .order-content h2 {
     font-size: var(--fontsize-title);
     font-weight: bold;
-    color: var(--text-primary);
+    color: var(--ichst-primary);
     margin-bottom: 10px;
 }
 
@@ -46,14 +46,14 @@
 
 .payment-fail .order-content .order-info-group span {
     font-size: var(--fontsize-subtitle);
-    color: var(--text-secondary);
+    color: var(--ichst-primary-70);
     font-weight: normal;
 }
 
 .payment-fail .order-content .order-info-group p {
     font-size: var(--fontsize-subtitle);
     font-weight: bold;
-    color: var(--button-primary);
+    color: var(--ichst-primary);
 
 }
 
@@ -75,7 +75,7 @@
     font-size: var(--fontsize-content);
     font-weight: bold;
     color: var(--text-white);
-    background-color: var(--button-primary);
+    background-color: var(--ichst-primary);
     transition: all 0.3s ease-in-out;
     cursor: pointer;
     text-decoration: none;
@@ -84,7 +84,7 @@
 }
 
 .payment-fail .payment-more-info a:hover {
-    background-color: var(--button-hover);
+    background-color: var(--ichst-primary-70);
     transform: translateY(-2px);
     transition: all 0.3s ease-in-out;
 

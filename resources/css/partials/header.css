@@ -6,13 +6,15 @@ header {
     z-index: 100;
     border-bottom: 1px solid var(--border-primary);
 
-    background-image: linear-gradient(120deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+    /*background-image: linear-gradient(120deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));*/
+    background-color: var(--ichst-primary-70);
     backdrop-filter: blur(16px);
 }
 
 header .active {
     color: var(--text-white);
-    background-color: var(--background-primary);
+    /*background-color: var(--background-primary);*/
+    background-color: var(--ichst-primary);
 }
 
 .container {
@@ -24,12 +26,12 @@ header .active {
 .logo {
     font-size: 30px;
     font-weight: bold;
-    color: var(--text-logo);
 }
 
 .logo a {
     text-decoration: none;
     font-weight: bold;
+    color: var(--text-white);
 }
 
 header nav {
@@ -39,7 +41,7 @@ header nav {
 
 header nav a {
     text-decoration: none;
-    color: var(--text-primary);
+    color: var(--text-white);
     padding: 40px 20px;
     font-size: var(--fontsize-subtitle);
     font-weight: normal;

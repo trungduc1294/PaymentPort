@@ -9,8 +9,10 @@
     box-shadow: var(--box-shadow-primary);
 }
 
+
 .audience_form h1 {
     font-size: var(--fontsize-title);
+    color: var(--ichst-primary);
     margin-bottom: 40px;
     text-align: center;
 }
@@ -28,6 +30,7 @@
     display: block;
     font-weight: bold;
     font-size: var(--fontsize-subtitle);
+    color: var(--ichst-primary-70);
 }
 
 .form_regis input[type="email"],
@@ -41,7 +44,7 @@
     border-radius: 5px;
 
     outline: none;
-    color: var(--text-primary);
+    color: var(--ichst-primary-70);
     background-color: transparent;
 
     transition: 0.1s ease-in-out;
@@ -82,13 +85,13 @@
 
     font-size: var(--fontsize-subtitle);
     color: #fff;
-    background-color: var(--button-primary);
+    background-color: var(--ichst-primary);
 
     transition: 0.2s ease-in-out;
 }
 
 .btn:hover {
-    background-color: var(--button-hover);
+    background-color: var(--ichst-primary-70);
     transform: translateY(-2px);
     transition: 0.2s ease-in-out;
 }

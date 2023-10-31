@@ -1,4 +1,9 @@
 :root {
+    --ichst-primary: rgba(8,49,94, 1);
+    --ichst-primary-70: rgba(8,49,94, 0.7);
+    --ichst-primary-50: rgba(8,49,94, 0.5);
+    --ichst-primary-30: rgba(8,49,94, 0.3);
+
     --text-primary: #45474B;
     --text-secondary: #8D8D8D;
     --text-white: #fff;

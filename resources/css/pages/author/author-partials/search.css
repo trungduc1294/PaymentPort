@@ -16,11 +16,12 @@
 
 .title h1 {
     font-size: var(--fontsize-title);
+    color: var(--ichst-primary);
 }
 
 .title p {
     font-size: var(--fontsize-subtitle);
-    color: var(--text-secondary);
+    color: var(--ichst-primary-70);
 }
 
 /* Style for the search input */
@@ -33,6 +34,7 @@ label[for="author-search"] {
     display: block;
     font-size: var(--fontsize-subtitle);
     margin-bottom: 3px;
+    color: var(--ichst-primary-70);
 }
 
 #author-search {
@@ -89,15 +91,20 @@ label[for="author-search"] {
     padding: 10px;
     text-align: left;
     border: 1px solid var(--border-primary);
-    background-color: var(--background-secondary);
+    background-color: var(--ichst-primary-50);
 }
 
 .author_search table th {
-    background-color: var(--background-primary);
+    background-color: var(--ichst-primary);
+    color: var(--text-white);
+}
+
+.author_search table tr {
+    color: var(--text-white);
 }
 
 .author_search table tr:nth-child(even) {
-    background-color: #f5f5f5;
+    background-color: var(--ichst-primary-70);
 }
 
 /* Style for the checkboxes */
@@ -126,7 +133,7 @@ label[for="author-search"] {
 /* Style for the "Continue" button */
 .author_search button[type="submit"] {
     padding: 10px 20px;
-    background-color: var(--button-primary);
+    background-color: var(--ichst-primary);
     color: var(--text-white);
     border: none;
     border-radius: 5px;
@@ -135,5 +142,5 @@ label[for="author-search"] {
 }
 
 button[type="submit"]:hover {
-    background-color: var(--button-hover);
+    background-color: var(--ichst-primary-70);
 }

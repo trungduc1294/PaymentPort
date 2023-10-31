@@ -15,6 +15,7 @@
 /* Style for the title */
 .author_bill h2 {
     font-size: var(--fontsize-title);
+    color: var(--ichst-primary);
     text-align: center;
     margin-bottom: 20px;
 }
@@ -34,19 +35,19 @@
 
 .bill_content_group span {
     margin-right: 10px;
-    color: var(--text-primary);
+    color: var(--ichst-primary-70);
     font-size: var(--fontsize-subtitle);
 }
 
 .bill_content p {
     font-size: var(--fontsize-subtitle);
-    color: var(--text-secondary);
+    color: var(--ichst-primary-70);
 }
 
 /* Style for the "Purchase" button */
 button[type="button"] {
     padding: 10px 20px;
-    background-color: var(--button-primary);
+    background-color: var(--ichst-primary);
     color: var(--text-white);
     border: none;
     border-radius: 5px;
@@ -55,5 +56,5 @@ button[type="button"] {
 }
 
 button[type="button"]:hover {
-    background-color: var(--button-hover);
+    background-color: var(--ichst-primary-70);
 }

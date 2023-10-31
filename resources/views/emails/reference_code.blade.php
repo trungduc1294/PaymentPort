@@ -10,7 +10,7 @@
         }
 
         .mail-container {
-            background-color: #F2F4F6;
+            background-color: rgba(8,49,94, 0.3);
             width: 100%;
             height: 100%;
         }
@@ -23,7 +23,7 @@
         }
 
         .reference-code-container .logo {
-            background-color: #000;
+            background-color: rgba(8,49,94, 1);
             padding: 10px;
         }
 
@@ -64,7 +64,7 @@
         footer {
             color: white;
             font-size: 14px;
-            background-color: #000;
+            background-color: rgba(8,49,94, 1);
             padding: 4px 10px;
         }
     </style>
@@ -74,7 +74,7 @@
     <div class="reference-code-container">
         <header class="logo">
             <h1>
-                RIVF'23
+                ICHST-2023
             </h1>
         </header>
         <div class="main-content">
@@ -89,7 +89,7 @@
             </div>
         </div>
         <footer>
-            <p>© 2021 RIVF'23. All rights reserved.</p>
+            <p>© ICHST-2023. All rights reserved.</p>
         </footer>
     </div>
 </div>

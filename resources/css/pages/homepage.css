@@ -18,7 +18,7 @@
 
 .homepage a {
     text-decoration: none;
-    background-color: var(--button-primary);
+    background-color: var(--ichst-primary);
     color: var(--text-white);
     padding: 10px 20px;
     border-radius: 5px;
@@ -31,7 +31,7 @@
 .homepage a:hover {
     transform: translate(0, -3px);
     transition: all 0.3s ease-in-out;
-    background-color: var(--button-hover);
+    background-color: var(--ichst-primary-70);
 }
 
 .homepage img {

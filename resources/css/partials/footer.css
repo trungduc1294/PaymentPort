@@ -10,7 +10,8 @@ footer {
 
     border-top: 1px solid var(--border-primary);
 
-    background-image: linear-gradient(120deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+    /*background-image: linear-gradient(120deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));*/
+    background-color: var(--ichst-primary-70);
     backdrop-filter: blur(16px);
 }
 
@@ -25,5 +26,5 @@ footer p {
     display: block;
     font-size: 14px;
     padding: 4px;
-    color: var(--text-secondary);
+    color: var(--text-white);
 }
