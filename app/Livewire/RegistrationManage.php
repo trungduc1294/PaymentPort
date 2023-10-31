@@ -55,7 +55,7 @@ class RegistrationManage extends Component
                 return;
             }
         } else {
-            $this->errorMessage = 'Không tìm thấy email nào phù hợp. Hãy kiểm tra lại.';
+            $this->errorMessage = 'No matching email found. Please check again.';
             $this->alert('error', 'Your email is inappropriate!', [
                 'position' => 'top-end',
                 'timer' => '2000',
