@@ -73,3 +73,11 @@
     - chạy từ đầu bằng ngrok gây lỗi thông tin thanh toán không hợp lệ khi chuyển đến cổng thanh toán. 
     => Lỗi do gọi hàm fetchTransactionReturn() maf k phair fetchTransaction() trong returnControllerLivewire. 
     => Sửa lại fetchTransactionReturn() thành fetchTransaction() thì ok nhunwg bij gửi 2 email success
+
+# 8. note
+    - Theem phần hiển thị tiền tiếng việt cho người dùng
+    - Test lại trươờng hợp 
+        - User A đang thanh toaán, sau ó đóng luôn không thanh toán nữa thì User khc có vào thanh toán được không
+        - UserA ang thanh toansd trước, user B thanh toán sau, user B có vào thanh toán được không
+        - Thanh toán xong đóng luôn không chờ redirect về website thì có bị lỗi gì không
+    

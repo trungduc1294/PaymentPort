@@ -2,7 +2,7 @@
     <div class="container">
         <div class="logo">
             <a href="{{url("/")}}">
-                RIVF'23
+                ICHST-2023
             </a>
         </div>
         <nav>
