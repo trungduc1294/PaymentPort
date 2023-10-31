@@ -68,3 +68,9 @@ Route::get('/payment-return', function () {
 Route::get('/test', function () {
     app(\App\Services\PaymentService::class)->create('BK123456', 100000);
 });
+
+
+// Admin route ========================================================================================
+Route::get('/admin/delete-all-posts', function () {
+    return view('admin.delete-all-post');
+});
