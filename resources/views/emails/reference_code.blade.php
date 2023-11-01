@@ -85,7 +85,7 @@
             <div class="reference-code-info">
                 <p>Thank you. Please use this code to join RIVF'23.</p>
                 <p>Best regards,</p>
-                <p>RIVF'23</p>
+                <p>ICHST-2023</p>
             </div>
         </div>
         <footer>
