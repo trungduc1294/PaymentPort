@@ -162,12 +162,19 @@ class RegistrationManage extends Component
     // Buoc 2: xoa order
     // Buoc 3: xoa presenter
     // Buoc 3: cap nhat trang thai post ve active de hien thi dang ky lai
+    // Buoc 5: Gửi email thông báo đã hủy thành công
     public function confirmCanCel() {
         if ($this->confirm_code == $this->random_code) {
 
             $order = Order::find($this->delete_order_id);
 
             $presenters = Presenter::where('order_id', $order->id)->get();
+
+            // send email cancel bill
+            $user_email = $this->searchValue;
+            $delete_reference = $order->reference;
+            $delete_total = $order->total_price;
+
 
             // update status of post to active and delete presenter
             if ($presenters) {
@@ -183,9 +190,20 @@ class RegistrationManage extends Component
             // delete order
             $order->delete();
 
+            Mail::send('emails.cancel_bill_success',
+                [
+                    'total' => $delete_total,
+                    'cancel_code' => $delete_reference,
+                ],
+                function ($email) use ($user_email) {
+                    $email->to($user_email)->subject('Cancel Bill Success');
+                }
+            );
+
             // call search function to update list order
             $this->search();
             $this->errorMessage = '';
+
             $this->alert('success', 'Cancel successfully!', [
                 'position' => 'top-end',
                 'timer' => '2000',
