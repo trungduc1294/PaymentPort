@@ -80,4 +80,10 @@
         - User A đang thanh toaán, sau ó đóng luôn không thanh toán nữa thì User khc có vào thanh toán được không
         - UserA ang thanh toansd trước, user B thanh toán sau, user B có vào thanh toán được không
         - Thanh toán xong đóng luôn không chờ redirect về website thì có bị lỗi gì không
+
+
+# 9. Looix
+    - Khi bấmvaofo the nội địa bị lỗi
+    - Đôi khi thanh toán không trả về code tham gia => đổi về dùng chung 1 hàm của return và noti thì return không trả về transaction
+
     

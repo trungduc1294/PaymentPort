@@ -45,7 +45,8 @@ trait PaymentTrait
         // Cập nhật thông tin thanh toán vào transaction
         $transactionData = array_merge(
             $transaction->toArray(),
-            $paymentData
+            $paymentData,
+            ['order_id' => $order->id]
         );
         $transaction->fill($transactionData)->save();
 
@@ -55,7 +56,7 @@ trait PaymentTrait
         }
 
         // Gui mail cho nguoi mua thong bao thanh toan thanh cong kem code tham gia
-        if ($order->status === 'paid') {
+        if ($order->status === 'paid' && $order->reference === null) {
             $join_code = $this->generateRandomCode();
 
             $order->reference = $join_code;
@@ -78,7 +79,6 @@ trait PaymentTrait
             $postIdList = Presenter::where('order_id', $order->id)->pluck('post_id')->toArray();
             Post::whereIn('id', $postIdList)->update(['status' => 'unactive']);
         }
-
 
         return $order->load('transaction')->toArray();
     }

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportExcelController;
 //use App\Http\Controllers\AudienceController;
 //use App\Http\Controllers\MailController;
-use App\Http\Controllers\AuthorController;
+//use App\Http\Controllers\AuthorController;
 //use App\Livewire\Counter;
 use App\Livewire\RegistrationManage;
 //use App\Http\Controllers\ManageRegistrationController;
@@ -20,6 +20,8 @@ use App\Livewire\RegistrationManage;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
 // Home page =================================================================================================
 Route::get('/', function () {
     return view('pages.homepage');

@@ -15,14 +15,16 @@
                     <span>Total pay: </span>
                     <p>{{ number_format($order['total_price'])  }}$</p>
                 </div>
-                <div class="order-info-group">
-                    <span>Total pay: </span>
-                    <p>{{ number_format($order['transaction']['amount'])  }}VND</p>
-                </div>
-                <div class="order-info-group">
-                    <span>Payment Status: </span>
-                    <p>{{$order['transaction']['payment_desc']}}</p>
-                </div>
+                @if(!empty($order['transaction']))
+                    <div class="order-info-group">
+                        <span>Total pay: </span>
+                        <p>{{ number_format($order['transaction']['amount']) ?? null}}VND</p>
+                    </div>
+                    <div class="order-info-group">
+                        <span>Payment Status: </span>
+                        <p>{{$order['transaction']['payment_desc'] ?? null}}</p>
+                    </div>
+                @endif
             </div>
             <div class="payment-more-info">
                 <p>Please save your code or you can check again in your email.</p>

@@ -11,14 +11,16 @@
                     <span>Total pay: </span>
                     <p>{{$order['total_price']}}$</p>
                 </div>
-                <div class="order-info-group">
-                    <span>Total pay: </span>
-                    <p>{{$order['transaction']['amount']}}VND</p>
-                </div>
-                <div class="order-info-group">
-                    <span>Payment Status: </span>
-                    <p>{{$order['transaction']['payment_desc']}}</p>
-                </div>
+                @if(!empty($order['transaction']))
+                    <div class="order-info-group">
+                        <span>Total pay: </span>
+                        <p>{{$order['transaction']['amount'] ?? null}}VND</p>
+                    </div>
+                    <div class="order-info-group">
+                        <span>Payment Status: </span>
+                        <p>{{$order['transaction']['payment_desc'] ?? null}}</p>
+                    </div>
+                @endif
             </div>
             <div class="payment-more-info">
                 <p>If you want to pay your bill again. Please delete your "unpaid" bill in Manage Registration first.</p>
