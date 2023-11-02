@@ -13,16 +13,16 @@
                 Guildline
             </a>
             <a
-                href="{{url("/audience-registration-page")}}"
-                class="{{Request::is('audience-registration-page') ? 'active' : ''}}"
-            >
-                For Audience
-            </a>
-            <a
                 href="{{url("/author")}}"
                 class="{{Request::is('author') ? 'active' : ''}}"
             >
                 For Authors
+            </a>
+            <a
+                href="{{url("/audience-registration-page")}}"
+                class="{{Request::is('audience-registration-page') ? 'active' : ''}}"
+            >
+                For Audience
             </a>
             <a
                 href="{{url("/registration-manage")}}"
