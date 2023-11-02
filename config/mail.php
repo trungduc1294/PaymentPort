@@ -34,14 +34,26 @@ return [
     */
 
     'mailers' => [
+        // Reset gmail here
+//        'smtp' => [
+//            'transport' => 'smtp',
+//            'url' => env('MAIL_URL'),
+//            'host' => 'smtp.gmail.com',
+//            'port' => 587,
+//            'encryption' => 'tls',
+//            'username' => 'trungduc.1294@gmail.com',
+//            'password' => 'khefcxjuplpcthpk',
+//            'timeout' => null,
+//            'local_domain' => env('MAIL_EHLO_DOMAIN'),
+//        ],
         'smtp' => [
             'transport' => 'smtp',
             'url' => env('MAIL_URL'),
-            'host' => 'smtp.gmail.com',
+            'host' => 'smtp-mail.outlook.com',
             'port' => 587,
             'encryption' => 'tls',
-            'username' => 'trungduc.1294@gmail.com',
-            'password' => 'khefcxjuplpcthpk',
+            'username' => 'no_reply.elearning@hust.edu.vn',
+            'password' => 'bkhn2019',
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
@@ -98,8 +110,13 @@ return [
     |
     */
 
+    // Reset gmail here
+//    'from' => [
+//        'address' => 'trungduc.1294@gmail.com',
+//        'name' => 'Payment Port',
+//    ],
     'from' => [
-        'address' => 'trungduc.1294@gmail.com',
+        'address' => 'no_reply.elearning@hust.edu.vn',
         'name' => 'Payment Port',
     ],
 

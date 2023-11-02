@@ -85,6 +85,9 @@
 # 9. Looix
     - Khi bấmvaofo the nội địa bị lỗi
     - Đôi khi thanh toán không trả về code tham gia => đổi về dùng chung 1 hàm của return và noti thì return không trả về transaction
-
     - Gửi mail thông báo hủy thành công và thông báo chú ý cach thưc nhận lại tiền
+
+# 10. Looix
+    - Sửa local mail host thành outlook, đã check gửi đi được nhưng mail không đến nơi
+
     
