@@ -1,7 +1,7 @@
 <div class="author_search">
     <div class="title">
-        <h1>The payment page for presenter.</h1>
-        <p>Search by author name and select your posts.</p>
+        <h1>The payment page for presenter</h1>
+        <p>Search by author name and select your posts</p>
     </div>
 
     <!-- Search input -->
@@ -18,11 +18,11 @@
         <table>
             <thead>
             <tr>
-                <th>POSTID</th>
+                <th>PaperID</th>
                 <th>Author</th>
                 <th>Title</th>
                 <th>Email</th>
-                <th>Add to pay.</th>
+                <th>Add to pay</th>
             </tr>
             </thead>
             <tbody id="author-data">

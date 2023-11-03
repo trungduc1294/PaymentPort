@@ -94,4 +94,10 @@
     - bỏ check audience không được là author, author có thể đăng ký audience
     - thêm trường fullname vào bảng user
 
+# 12. Thay đổi
+    - Thêm bảng post-author để xử lý 1 author có nhiều post và 1 post có nhiều author
+    - Khi 1 bài post đã được thanh toán và trở thành trạng thái unactive thì ở trang search sẽ hiển thị thêm các thông tin (đã thanh toán), và không có ô tích chọn cho bài post đó nữa.
+    - Nếu bài post đang bị chờ thanh toán thì sao ? Tức là có order nhưng bị unpaid?
+    - Nếu vậy thì sẽ kiểm tra xem order->user có phải là người đã tạo ra thanh toán đấy hay không, nếu là một author khác thì sẽ cho họ vào thanh toán. Còn nếu vẫn là author cũ thì sẽ phải thực hiện bước xóa thanh toán cũ => tạo thanh toán mới.
+    - Nếu 1 bài post có nhiều order, khi một người thanh toán thành công sẽ xóa hết order của các bài post đó.
     

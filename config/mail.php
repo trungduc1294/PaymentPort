@@ -117,7 +117,7 @@ return [
 //    ],
     'from' => [
         'address' => 'no_reply.elearning@hust.edu.vn',
-        'name' => 'Payment Port',
+        'name' => 'ICHST-2023',
     ],
 
     /*

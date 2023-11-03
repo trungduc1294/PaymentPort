@@ -92,7 +92,7 @@ class RegistrationManage extends Component
                 'code' => $this->random_code,
             ],
             function ($email) use ($user_email) {
-                $email->to($user_email)->subject('Confimation Code');
+                $email->to($user_email)->subject('Payment Confimation Code');
             }
         );
 

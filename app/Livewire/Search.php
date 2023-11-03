@@ -299,7 +299,7 @@ class Search extends Component
                 'code' => $this->random_code
             ]
             , function ($email) use ($reciver_mail) {
-                $email->to($reciver_mail)->subject('Verify Code');
+                $email->to($reciver_mail)->subject('Payment Verify Code');
             }
         );
 
