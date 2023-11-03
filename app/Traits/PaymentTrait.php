@@ -62,11 +62,14 @@ trait PaymentTrait
             $order->reference = $join_code;
             $order->save();
 
+             $user_name = User::where('id', $order->user_id)->first()->full_name;
+
             // send email to author
             $reciver_mail = User::where('id', $order->user_id)->first()->email;
             Mail::send('emails.reference_code',
                 [
-                    'join_code' => $join_code
+                    'join_code' => $join_code,
+                    'mail_full_name' => $user_name,
                 ]
                 , function ($email) use ($reciver_mail) {
                     $email->to($reciver_mail)->subject('Payment Success, Join Code');

@@ -90,4 +90,8 @@
 # 10. Looix
     - Sửa local mail host thành outlook, đã check gửi đi được nhưng mail không đến nơi
 
+# 11. Thay đổi
+    - bỏ check audience không được là author, author có thể đăng ký audience
+    - thêm trường fullname vào bảng user
+
     

@@ -33,7 +33,7 @@
     color: var(--ichst-primary-70);
 }
 
-.form_regis input[type="email"],
+.form_regis input,
 .form_regis select {
     width: 100%;
     padding: 10px;
@@ -50,13 +50,13 @@
     transition: 0.1s ease-in-out;
 }
 
-.form_regis input[type="email"]:hover,
+.form_regis input:hover,
 .form_regis select:hover {
     box-shadow: 0 0 15px var(--input-outline-focus-alpha), 0 0 2px var(--input-outline-focus-full) ;
     transition: 0.2s ease-in-out;
 }
 
-.form_regis input[type="email"]:focus,
+.form_regis input:focus,
 .form_regis select:focus {
     box-shadow: 0 0 15px var(--input-outline-focus-alpha), 0 0 2px var(--input-outline-focus-full) ;
     transform: scale(102%);

@@ -10,6 +10,7 @@ return new class extends Migration {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('email');
+            $table->string('full_name')->nullable();
             $table->string('user_type')->nullable();
             $table->string('role_id');
             $table->timestamp('email_verified_at')->nullable();

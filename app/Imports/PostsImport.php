@@ -42,6 +42,7 @@ class PostsImport implements ToCollection
             $user->fill([
                 'email' => $row[3],
                 'user_type' => 'author',
+                'full_name' => $row[1],
                 'role_id' => 0,
             ])->save();
 

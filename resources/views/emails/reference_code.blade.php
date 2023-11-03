@@ -79,6 +79,9 @@
         </header>
         <div class="main-content">
             <div class="reference-code">
+                @if(!empty($mail_full_name))
+                    <h1>Dear {{$mail_full_name}},</h1>
+                @endif
                 <h1>Thank for your purchase. This is your joining code:</h1>
                 <p>{{$join_code}}</p>
             </div>

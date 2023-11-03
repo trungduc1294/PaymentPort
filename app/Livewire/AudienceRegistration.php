@@ -23,6 +23,7 @@ class AudienceRegistration extends Component
 
     // WIRE:MODEL var
     public $email;
+    public $full_name;
     public $user_code_input;
 
     // Global var
@@ -42,11 +43,11 @@ class AudienceRegistration extends Component
         } else {
             // Check user exits
             $user = User::where('email', $this->email)->first();
-            if ($user && $user->user_type == "author") {
-                $this->errMessage = 'Are you an author? Please use the author \'s form. If not, use a different email.';
-                return false;
-            }
-            elseif ($user && $user->user_type == "audience") {
+//            if ($user && $user->user_type == "author") {
+//                $this->errMessage = 'Are you an author? Please use the author \'s form. If not, use a different email.';
+//                return false;
+//            }
+            if ($user && $user->user_type == "audience") {
                 $order = Order::where('user_id', $user->id)->first();
                 if ($order && $order->status == 'paid') {
                     $this->errMessage = 'This email has already been registered.';
@@ -142,6 +143,7 @@ class AudienceRegistration extends Component
             if (!$user) {
                 $user = new User();
                 $user->email = $this->email;
+                $user->full_name = $this->full_name;
                 $user->user_type = 'audience';
                 $user->role_id = 0;
                 $user->email_verified_at = now();
