@@ -22,6 +22,7 @@
                 <th>Author</th>
                 <th>Title</th>
                 <th>Email</th>
+                <th>Status</th>
                 <th>Add to pay</th>
             </tr>
             </thead>
@@ -34,12 +35,27 @@
                         <td>{{$author['full_name']}}</td>
                         <td>{{$post['title']}}</td>
                         <td>{{$author['email'] ?? null}}</td>
-                        <td>
-                            <input type="checkbox" name="purchase"
-                                   value="{{$post['id']}}_{{$author['id']}}"
-                                   wire:click="onCheckPost('{{$post['id']}}_{{$author['id']}}')"
-                            >
-                        </td>
+                        @if($post['status'] == 'unactive')
+                            <td style="color: red;">Paid </td>
+                        @else
+                            <td>Unpaid</td>
+                        @endif
+                        @if( $post['status'] == 'active')
+                            <td>
+                                <input type="checkbox" name="purchase"
+                                       value="{{$post['id']}}_{{$author['id']}}"
+                                       wire:click="onCheckPost('{{$post['id']}}_{{$author['id']}}')"
+                                >
+                            </td>
+                        @else
+                            <td>
+                                <input type="checkbox" name="purchase"
+                                       value="{{$post['id']}}_{{$author['id']}}"
+                                       wire:click="onCheckPost('{{$post['id']}}_{{$author['id']}}')"
+                                       disabled
+                                >
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
             @endforeach

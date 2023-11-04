@@ -69,21 +69,13 @@ class Search extends Component
 
         $keyword = $this->keyword;
 
-//        $users = User::query()
-//            ->with(['posts'])
-//            ->wherehas('posts', function ($query) use ($keyword) {
-//                return $query->whereIn('posts.status', ['active']);
-//            })
-//            ->where('full_name', 'like', '%'.$keyword.'%')
-//            ->get();
-
         $posts = Post::query()
             ->with([
                 'authors' => function ($query) use ($keyword) {
                     return $query->where('users.full_name', 'like', '%'.$keyword.'%');
                 }
             ])
-            ->whereIn('status', ['active'])
+//            ->whereIn('status', ['active'])
             ->wherehas('authors', function ($query) use ($keyword) {
                 return $query->where('users.full_name', 'like', '%'.$keyword.'%');
             })

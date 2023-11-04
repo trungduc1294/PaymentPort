@@ -55,6 +55,7 @@ trait PaymentTrait
             $order->update(['status' => OrderStatusEnum::PAID->value]);
         }
 
+
         // Gui mail cho nguoi mua thong bao thanh toan thanh cong kem code tham gia
         if ($order->status === 'paid' && $order->reference === null) {
             $join_code = $this->generateRandomCode();
@@ -81,6 +82,20 @@ trait PaymentTrait
         if ($order->status === 'paid') {
             $postIdList = Presenter::where('order_id', $order->id)->pluck('post_id')->toArray();
             Post::whereIn('id', $postIdList)->update(['status' => 'unactive']);
+
+            // sau khi thanh toán thành công, xóa những order unpaid có chứa post đã thanh toán
+            foreach ($postIdList as $postId) {
+                $presenters = Presenter::where('post_id', $postId)->get();
+                foreach ($presenters as $presenter) {
+                    $unpaidOrder = Order::where('id', $presenter->order_id)
+                        ->where('status', 'unpaid')->first();
+
+                    if (!empty($unpaidOrder)) {
+                        $unpaidOrder->presenters()->delete();
+                        $unpaidOrder->delete();
+                    }
+                }
+            }
         }
 
         return $order->load('transaction')->toArray();
