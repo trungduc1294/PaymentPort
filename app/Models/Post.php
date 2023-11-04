@@ -16,8 +16,8 @@ class Post extends Model
         'status',
     ];
 
-    public function author()
+    public function authors()
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsToMany(User::class, 'user_post', 'post_id', 'user_id');
     }
 }

@@ -19,7 +19,6 @@ class OrderService
 
         try {
             DB::beginTransaction();
-
             $order = Order::create([
                 'user_id' => $params['author_id'],
                 'total_price' => $params['total_fee'],
@@ -29,7 +28,7 @@ class OrderService
 
             foreach ($params['selectedPosts'] as $index=>$post) {
                 $presenter = Presenter::create([
-                    'user_id' => $post['author_id'],
+                    'user_id' => $params['author_id'],
                     'post_id' => $post['id'],
                     'extra_page' => $params['extra_page'][$index] ?? 0,
                     'order_id' => $order->id,

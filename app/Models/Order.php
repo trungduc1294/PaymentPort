@@ -41,4 +41,9 @@ class Order extends Model
         return $this->hasOne(Transaction::class, 'order_id');
     }
 
+    public function presenters()
+    {
+        return $this->hasMany(Presenter::class, 'order_id');
+    }
+
 }

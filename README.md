@@ -101,3 +101,8 @@
     - Nếu vậy thì sẽ kiểm tra xem order->user có phải là người đã tạo ra thanh toán đấy hay không, nếu là một author khác thì sẽ cho họ vào thanh toán. Còn nếu vẫn là author cũ thì sẽ phải thực hiện bước xóa thanh toán cũ => tạo thanh toán mới.
     - Nếu 1 bài post có nhiều order, khi một người thanh toán thành công sẽ xóa hết order của các bài post đó.
     
+    => sửa ham search
+    => sửa hiển thị ở author search thêm status v bỏ ô tích chọn
+    => sửa hàm thanh toán ở author khi ccos1 nguười thanh toán xong th xóa hết orde ở các người khác có cai baài đ thanh toán ấy
+
+    

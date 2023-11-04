@@ -2,12 +2,11 @@
 
 namespace App\Imports;
 
-use App\Models\ExcelData;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\UserPost;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
-use Maatwebsite\Excel\Concerns\ToModel;
 
 class PostsImport implements ToCollection
 {
@@ -16,47 +15,38 @@ class PostsImport implements ToCollection
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-//    public function model(array $row)
-//    {
-//        return new ExcelData([
-//            'post_id' => $row[0],
-//            'author_name' => $row[1],
-//            'title' => $row[2],
-//            'email' => $row[3],
-//        ]);
-//    }
+
     public function collection(Collection $collection)
     {
-        // TODO: Implement collection() method.
         foreach ($collection as $row) {
             $rowData = $row->toArray();
 
-            if (empty($rowData)) {
+            if (empty($rowData) || empty($rowData[2]) || empty($rowData[5])) {
                 continue;
             }
 
-            $user = User::firstWhere('email', $row[3]);
+            $user = User::firstWhere('email', $rowData[2]);
             if (empty($user)) {
                 $user = new User();
             }
+
             $user->fill([
-                'email' => $row[3],
+                'email' => $rowData[2],
                 'user_type' => 'author',
-                'full_name' => $row[1],
+                'full_name' => $rowData[1],
                 'role_id' => 0,
             ])->save();
 
-            $post = Post::firstWhere('title', $row[2]);
+            $post = Post::firstWhere('title', $rowData[5]);
             if (empty($post)) {
                 $post = new Post();
             }
-
             $post->fill([
-                'author_id' => $user->id,
-                'author_name' => $row[1],
-                'title' => $row[2],
+                'title' => $rowData[5],
                 'status' => 'active',
             ])->save();
+
+            $post->authors()->syncWithoutDetaching($user->id);
         }
     }
 }

@@ -66,10 +66,27 @@ class Search extends Component
     }
 
     public function fetch() {
+
+        $keyword = $this->keyword;
+
+//        $users = User::query()
+//            ->with(['posts'])
+//            ->wherehas('posts', function ($query) use ($keyword) {
+//                return $query->whereIn('posts.status', ['active']);
+//            })
+//            ->where('full_name', 'like', '%'.$keyword.'%')
+//            ->get();
+
         $posts = Post::query()
-            ->with(['author'])
+            ->with([
+                'authors' => function ($query) use ($keyword) {
+                    return $query->where('users.full_name', 'like', '%'.$keyword.'%');
+                }
+            ])
             ->whereIn('status', ['active'])
-            ->where('author_name', 'like', '%'.$this->keyword.'%')
+            ->wherehas('authors', function ($query) use ($keyword) {
+                return $query->where('users.full_name', 'like', '%'.$keyword.'%');
+            })
             ->get();
         $this->posts = $posts->toArray();
     }
@@ -98,68 +115,69 @@ class Search extends Component
     // STEP2: Xử lý phần thông tin sau khi chọn các bài posts----------------------------------------------------------------
 
     // lấy thông tin các bài post theo danh sách id
-    public function fetchSelectedPosts() {
+    public function fetchSelectedPosts($postIds = []) {
         $this->selectedPosts = Post::query()
-            ->whereIn('id', $this->selectedPostsId)
+            ->whereIn('id', $postIds)
             ->get()
             ->toArray();
         $this->totalPosts = count($this->selectedPosts);
     }
 
     // lọc author, chỉ cho phép chọn các baài post từ 1 tác giả, CHƯA XỬ LÝ PHẦN CHỈ CHO CHỌN TỐI ĐA 3 POST
-    public function fetchAuthorInfo() {
-        // get author id list from selected posts
-        $authorIdList = array_column($this->selectedPosts, 'author_id');
-
-        // if author id list is the same
-        if (count(array_unique($authorIdList)) === 1) {
-            $authorId = $authorIdList[0];
-            $this->author = User::query()->find($authorId);
-        }
+    public function fetchAuthorInfo($userIds = []) {
+        $this->author = User::query()->find($userIds[0]);
     }
 
-    public function authorSearchChecker() {
+    public function authorSearchChecker($userIds = [], $postIds = []) {
         // Kiem tra da nhap thong tin tim kiem chua
         if (empty($this->keyword)) {
             $this->errorMessages = 'You haven\'t entered the author\'s name. Please enter the author\'s name.';
             return false;
         } else {
             // kiem tra xem co chon bai post nao khong
-            if (count($this->selectedPostsId) === 0) {
+            if (count($postIds) === 0) {
                 $this->errorMessages = 'Please select at least one post.';
                 return false;
             } else {
                 // kiem tra xem co chon qua 3 bai post khong
-                if (count($this->selectedPostsId) > 3) {
+                if (count($postIds) > 3) {
                     $this->errorMessages = 'The maximum number of posts is 3. Please check again.';
                     return false;
                 }
 
                 // kiem tra xem co chon bai post cua nhieu tac gia khac nhau khong
-                $authorIdList = array_column($this->selectedPosts, 'author_id');
-                if (!(count(array_unique($authorIdList)) === 1)) {
+                if (count($userIds) > 1) {
                     $this->errorMessages = 'You have selected articles from different authors. You can only select articles from the same author.';
                     return false;
                 }
+
                 // Kiểm tra xem có chọn bài post trùng với bài post mà user này đã từng order mà chưa thanh toán (unpaid) không
-                $authorId = $authorIdList[0];
-                $author = User::query()->find($authorId);
-                $authorOrders = Order::query()
-                    ->where('user_id', $authorId)
-                    ->where('status', 'unpaid')
-                    ->get();
-                $authorOrderIds = array_column($authorOrders->toArray(), 'id');
-                $authorOrderPresenters = Presenter::query()
-                    ->whereIn('order_id', $authorOrderIds)
-                    ->get();
-                $authorOrderPresentersPostIds = array_column($authorOrderPresenters->toArray(), 'post_id');
-                $selectedPostsId = array_column($this->selectedPosts, 'id');
-                $intersect = array_intersect($authorOrderPresentersPostIds, $selectedPostsId);
-                if (count($intersect) > 0) {
+                // Neeus chonj 3 bài: 1 baài đã order nhưng chưa thanh toaán => báo lỗi
+
+                $isOrdered = Order::query()
+                    ->where('user_id', $userIds[0])
+                    ->whereHas('presenters', function ($query) use ($postIds) {
+                        return $query->whereIn('presenters.post_id', $postIds);
+                    })
+                    ->count();
+
+//                $authorId = $userIds[0];
+//                $author = User::query()->find($authorId);
+//                $authorOrders = Order::query()
+//                    ->where('user_id', $authorId)
+//                    ->where('status', 'unpaid')
+//                    ->get();
+//                $authorOrderIds = array_column($authorOrders->toArray(), 'id');
+//                $authorOrderPresenters = Presenter::query()
+//                    ->whereIn('order_id', $authorOrderIds)
+//                    ->get();
+//                $authorOrderPresentersPostIds = array_column($authorOrderPresenters->toArray(), 'post_id');
+//                $selectedPostsId = array_column($this->selectedPosts, 'id');
+//                $intersect = array_intersect($authorOrderPresentersPostIds, $selectedPostsId);
+                if ($isOrdered > 0) {
                     $this->errorMessages = 'You have registered these articles but haven\'t made the payment. Please go to the \'Manage Registration\' page to cancel your previous order. Afterward, you can re-register.';
                     return false;
                 }
-
             }
         }
 
@@ -172,15 +190,29 @@ class Search extends Component
     // continue to step 3 khi bấm nút
     public function continue()
     {
+        $postIds = [];
+        $userIds = [];
+        // B1: Lay danh sach post id tu selectedPostsId
+        foreach ($this->selectedPostsId as $postId) {
+            $ids = explode('_', $postId);
+            $postIds[$ids[0]] = $ids[0];
+            $userIds[$ids[1]] = $ids[1];
+        }
+
+        $postIds = array_values($postIds);
+        $userIds = array_values($userIds);
+
+        // B2: Lay danh sach user tu selectedPostsId
+
         // sử dụng hàm này để lấy được các post đã chọn rồi mới tiến hành kiểm tra được, nếu không fetch thì sẽ không có dữ liệu để kiểm tra
-        $this->fetchSelectedPosts();
+        $this->fetchSelectedPosts($postIds);
 
         // thoa man cac dieu kien moi duoc phep sang buoc tiep theo
-        if (!$this->authorSearchChecker()) {
+        if (!$this->authorSearchChecker($userIds, $postIds)) {
             return;
         } else {
             // nếu thỏa mãn các điều kiện thì sẽ tiến hành lấy thông tin author khi bấm nút và chuyển sang buước tiếp theo
-            $this->fetchAuthorInfo();
+            $this->fetchAuthorInfo($userIds);
             $this->step = 'provide_info.blade.php';
 
             $this->alert('success', 'Post selection successful.', [

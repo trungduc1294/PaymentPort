@@ -28,18 +28,20 @@
             <tbody id="author-data">
             <!-- Sample Data -->
             @foreach($posts as $post)
-                <tr>
-                    <td>{{$post['id']}}</td>
-                    <td>{{$post['author_name']}}</td>
-                    <td>{{$post['title']}}</td>
-                    <td>{{$post['author']['email'] ?? null}}</td>
-                    <td>
-                        <input type="checkbox" name="purchase"
-                               value="{{$post['id']}}"
-                               wire:click="onCheckPost({{$post['id']}})"
-                        >
-                    </td>
-                </tr>
+                @foreach($post['authors'] as $author)
+                    <tr>
+                        <td>{{$post['id']}}</td>
+                        <td>{{$author['full_name']}}</td>
+                        <td>{{$post['title']}}</td>
+                        <td>{{$author['email'] ?? null}}</td>
+                        <td>
+                            <input type="checkbox" name="purchase"
+                                   value="{{$post['id']}}_{{$author['id']}}"
+                                   wire:click="onCheckPost('{{$post['id']}}_{{$author['id']}}')"
+                            >
+                        </td>
+                    </tr>
+                @endforeach
             @endforeach
             </tbody>
         </table>
