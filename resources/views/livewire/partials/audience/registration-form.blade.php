@@ -6,7 +6,7 @@
 
     <div class="form_regis">
         <div class="form-group">
-            <label for="email">Email: </label>
+            <label for="email">Full name: </label>
             <input wire:model="full_name" type="text" name="full_name" id="full_name" placeholder="Enter your full name">
         </div>
         <div class="form-group">
