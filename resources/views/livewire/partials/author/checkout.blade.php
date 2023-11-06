@@ -1,8 +1,8 @@
 <div class="author_bill loading-container">
-    <h2>Payment information.</h2>
+    <h2>Payment information</h2>
     <div class="bill_content">
         <div class="bill_content_group">
-            <span>Participation fee. </span>
+            <span>Participation fee: </span>
             <p>{{$atendance_fee}}$</p>
         </div>
         <div class="bill_content_group">
