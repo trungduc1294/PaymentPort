@@ -46,11 +46,14 @@ Route::get('/registration-manage', function () {
 Route::post('/delete-order/{id}', [RegistrationManage::class, 'deleteOrder']);
 
 //import excel file ==========================================================================================
-// import route
+// import export route
 Route::get('/import-excel', function () {
     return view('import');
 });
 Route::post('/import-excel', [ImportExcelController::class, 'importExcel']);
+
+// export excel file
+Route::get('/export-excel', [\App\Http\Controllers\ExportExcelController::class, 'export']);
 
 
 

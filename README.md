@@ -105,4 +105,8 @@
     => sửa hiển thị ở author search thêm status v bỏ ô tích chọn
     => sửa hàm thanh toán ở author khi ccos1 nguười thanh toán xong th xóa hết orde ở các người khác có cai baài đ thanh toán ấy
 
+# 13. Route admin
+    - /import-excel
+    - /export-excel
+    - /admin/delete-all-posts
     
