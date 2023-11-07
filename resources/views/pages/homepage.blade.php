@@ -8,7 +8,5 @@
 {{--        <p>Last updated: {{now()}}</p>--}}
 {{--        <a target="_blank" href="https://docs.google.com/document/d/1vLnwdL-E237EAQGb6YHSEBL4ZlvzK8X_f5v3zz5PKdg/edit?usp=sharing">Click here to read</a>--}}
 
-        <img class="ichst-banner" src="{{asset('images/ICHST2023_banner.jpg')}}" alt="banner">
-
     </div>
 @endsection

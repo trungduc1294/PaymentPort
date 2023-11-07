@@ -24,7 +24,8 @@ use App\Livewire\RegistrationManage;
 
 // Home page =================================================================================================
 Route::get('/', function () {
-    return view('pages.homepage');
+    return redirect('/author');
+    // return view('pages.homepage');
 });
 
 
