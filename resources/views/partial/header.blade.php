@@ -6,12 +6,12 @@
             </a>
         </div>
         <nav>
-            <a
-                href="{{url("/")}}"
-                class="{{Request::is('/') ? 'active' : ''}}"
-            >
-                Guildline
-            </a>
+{{--            <a--}}
+{{--                href="{{url("/")}}"--}}
+{{--                class="{{Request::is('/') ? 'active' : ''}}"--}}
+{{--            >--}}
+{{--                Guildline--}}
+{{--            </a>--}}
             <a
                 href="{{url("/author")}}"
                 class="{{Request::is('author') ? 'active' : ''}}"
