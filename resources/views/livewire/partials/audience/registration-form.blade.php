@@ -1,6 +1,6 @@
 <div class="audience_form">
     <h1>Audience Registration Page</h1>
-    <p>Please enter your email to proceed with the registration.</p>
+    <p>Please enter your Full name and Email to proceed with the registration.</p>
 
     <span>{{$errMessage}}</span>
 
