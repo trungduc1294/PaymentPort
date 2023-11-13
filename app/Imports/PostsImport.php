@@ -21,32 +21,58 @@ class PostsImport implements ToCollection
         foreach ($collection as $row) {
             $rowData = $row->toArray();
 
-            if (empty($rowData) || empty($rowData[2]) || empty($rowData[5])) {
+            if (empty($rowData) || empty($rowData[5])) {
                 continue;
+            } elseif (empty($rowData[2])) {
+                $user = User::firstWhere('full_name', $rowData[1]);
+                if (empty($user)) {
+                    $user = new User();
+                }
+
+                $user->fill([
+                    'email' => 'noEmail',
+                    'user_type' => 'author',
+                    'full_name' => $rowData[1],
+                    'role_id' => 0,
+                ])->save();
+
+                $post = Post::firstWhere('title', $rowData[5]);
+                if (empty($post)) {
+                    $post = new Post();
+                }
+                $post->fill([
+                    'title' => $rowData[5],
+                    'status' => 'active',
+                ])->save();
+
+                $post->authors()->syncWithoutDetaching($user->id);
+            }
+            else {
+                $user = User::firstWhere('email', $rowData[2]);
+                if (empty($user)) {
+                    $user = new User();
+                }
+
+                $user->fill([
+                    'email' => $rowData[2],
+                    'user_type' => 'author',
+                    'full_name' => $rowData[1],
+                    'role_id' => 0,
+                ])->save();
+
+                $post = Post::firstWhere('title', $rowData[5]);
+                if (empty($post)) {
+                    $post = new Post();
+                }
+                $post->fill([
+                    'title' => $rowData[5],
+                    'status' => 'active',
+                ])->save();
+
+                $post->authors()->syncWithoutDetaching($user->id);
             }
 
-            $user = User::firstWhere('email', $rowData[2]);
-            if (empty($user)) {
-                $user = new User();
-            }
 
-            $user->fill([
-                'email' => $rowData[2],
-                'user_type' => 'author',
-                'full_name' => $rowData[1],
-                'role_id' => 0,
-            ])->save();
-
-            $post = Post::firstWhere('title', $rowData[5]);
-            if (empty($post)) {
-                $post = new Post();
-            }
-            $post->fill([
-                'title' => $rowData[5],
-                'status' => 'active',
-            ])->save();
-
-            $post->authors()->syncWithoutDetaching($user->id);
         }
     }
 }
