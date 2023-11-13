@@ -18,7 +18,7 @@ class PriceSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'price' => 200,
+                'price' => 300,
                 'price_code' => 'researcher',
                 'description' => 'researcher presenter',
                 'created_at' => now(),
