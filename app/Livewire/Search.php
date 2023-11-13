@@ -279,6 +279,11 @@ class Search extends Component
 
     public function showbill()
     {
+        // kiểm tra xem có đang ở chế độ bảo trì không
+        if (config('maintain.maintain_mode')) {
+            return redirect()->route('maintain');
+        }
+
         // kiểm tra xem đã nhập đủ thông tin chưa
         if (empty($this->type_member)) {
             $this->errorMessages = 'Please select role';

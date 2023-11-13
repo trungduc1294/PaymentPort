@@ -80,3 +80,8 @@ Route::get('/test', function () {
 Route::get('/admin/delete-all-posts', function () {
     return view('admin.delete-all-post');
 });
+
+// Maintainance route ========================================================================================
+Route::get('/maintain', function () {
+    return view('pages.maintain.maintain');
+})->name('maintain');

@@ -105,6 +105,10 @@ class AudienceRegistration extends Component
     // if click confirm button
     public $random_code;
     public function verify_bill () {
+        if (config('maintain.maintain_mode')) {
+            return redirect()->route('maintain');
+        }
+
         $this->step = 'input-code';
         // send email to user
         $reciver_mail = $this->email;
