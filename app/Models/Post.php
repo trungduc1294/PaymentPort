@@ -10,6 +10,7 @@ class Post extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'paper_id',
         'author_id',
         'author_name',
         'title',

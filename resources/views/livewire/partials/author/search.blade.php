@@ -31,7 +31,7 @@
             @foreach($posts as $post)
                 @foreach($post['authors'] as $author)
                     <tr>
-                        <td>{{$post['id']}}</td>
+                        <td>{{$post['paper_id']}}</td>
                         <td>{{$author['full_name']}}</td>
                         <td>{{$post['title']}}</td>
                         <td>{{$author['email'] ?? null}}</td>

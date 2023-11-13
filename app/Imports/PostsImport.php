@@ -41,6 +41,7 @@ class PostsImport implements ToCollection
                     $post = new Post();
                 }
                 $post->fill([
+                    'paper_id' => $rowData[0],
                     'title' => $rowData[5],
                     'status' => 'active',
                 ])->save();
@@ -65,6 +66,7 @@ class PostsImport implements ToCollection
                     $post = new Post();
                 }
                 $post->fill([
+                    'paper_id' => $rowData[0],
                     'title' => $rowData[5],
                     'status' => 'active',
                 ])->save();
