@@ -36,7 +36,7 @@
                 <label for="type_member">Registration types:</label>
                 <select wire:model="type_member" name="type_member" id="type_member">
                     <option value="">Registration types</option>
-                    <option value="researcher">Non-student (200$)</option>
+                    <option value="researcher">Non-student (300$)</option>
                     <option value="student">Student (100$)</option>
                 </select>
             </div>
