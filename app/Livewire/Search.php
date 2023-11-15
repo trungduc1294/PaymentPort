@@ -280,7 +280,7 @@ class Search extends Component
     public function showbill()
     {
         // kiểm tra xem có đang ở chế độ bảo trì không
-        if (config('maintain.maintain_mode')) {
+        if (config('maintain.maintain_mode') === true) {
             return redirect()->route('maintain');
         }
 
@@ -383,7 +383,7 @@ class Search extends Component
                 $transaction
             ]);
             throw_if(
-                empty($transaction) || (($transaction['code'] ?? 0) !== 200),
+                empty($transaction),
                 new \Exception('Cannot connect to payment gateway')
             );
 
@@ -399,7 +399,7 @@ class Search extends Component
 
             DB::commit();
 
-            $this->redirect($transaction['data']['url'] ?? 'http://failed.local');
+            $this->redirect($transaction['paymentUrl'] ?? 'http://failed.local');
             return;
         } catch (\Exception $exception) {
             DB::rollBack();

@@ -12,6 +12,7 @@ use App\Models\Order;
 use Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use function PHPUnit\Framework\isJson;
 
 class AudienceRegistration extends Component
 {
@@ -105,7 +106,7 @@ class AudienceRegistration extends Component
     // if click confirm button
     public $random_code;
     public function verify_bill () {
-        if (config('maintain.maintain_mode')) {
+        if (config('maintain.maintain_mode') === true) {
             return redirect()->route('maintain');
         }
 
@@ -166,11 +167,12 @@ class AudienceRegistration extends Component
 
             // tao transaction o cong thanh toan
             $transaction = app(PaymentService::class)->create($order->order_uid, $this->total_price);
-            Log::info('transaction info', [
-                $transaction
+
+            Log::info('transaction info after request', [
+                $transaction['paymentUrl'],
             ]);
             throw_if(
-                empty($transaction) || (($transaction['code'] ?? 0) !== 200),
+                empty($transaction),
                 new \Exception('Cannot connect to payment gateway')
             );
 
@@ -184,13 +186,14 @@ class AudienceRegistration extends Component
                 'onConfirmed' => '',
             ]);
 
-            $this->redirect($transaction['data']['url'] ?? 'http://failed.local');
+            $this->redirect($transaction['paymentUrl'] ?? 'http://failed.local');
             return;
+
         } catch (\Exception $exception) {
             $this->errorMessages = $exception->getMessage();
             $this->alert('error', $exception->getMessage(), [
                 'position' => 'top-end',
-                'timer' => '2000',
+                'timer' => '10000',
                 'toast' => true,
                 'timerProgressBar' => true,
                 'showConfirmButton' => false,

@@ -62,13 +62,16 @@ Route::get('/export-excel', [\App\Http\Controllers\ExportExcelController::class,
 // payment portal route ========================================================================================
 Route::any('/payment-notification', [PaymentHookController::class, 'index'])->name('payment.notification');
 
-Route::get('/payment-cancel', function () {
-    return view('pages.payment-portal.cancel');
-})->name('payment.cancel');
+//Route::get('/payment-cancel', function () {
+//    return view('pages.payment-portal.cancel');
+//})->name('payment.cancel');
 
-Route::get('/payment-return', function () {
+Route::any('/payment-return-view', function () {
     return view('pages.payment-portal.return');
-})->name('payment.return');
+})->name('payment.return-view');
+
+Route::any('/payment-return', [\App\Livewire\PaymentPortalReturn::class, 'paymentReturn'])->name('payment.return');
+Route::any('/payment-cancel', [\App\Livewire\PaymentPortalCancel::class, 'paymentCancel'])->name('payment.cancel');
 
 
 Route::get('/test', function () {

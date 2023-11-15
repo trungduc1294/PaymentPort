@@ -1,6 +1,5 @@
 <?php
 
 return [
-//    'maintain_mode' => env('MAINTAIN_MODE', false),
-    'maintain_mode' => true,
+    'maintain_mode' => env('MAINTAIN_MODE', false),
 ];

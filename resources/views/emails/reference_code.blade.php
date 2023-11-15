@@ -84,6 +84,8 @@
                 @endif
                 <h1>Thank for your purchase. This is your joining code:</h1>
                 <p>{{$join_code}}</p>
+                <p>Order id: {{$order_id}}</p>
+                <p>Total pay: {{ number_format($amount) ?? null}}VND</p>
             </div>
             <div class="reference-code-info">
                 <p>Thank you. Please use this code to join RIVF'23.</p>
