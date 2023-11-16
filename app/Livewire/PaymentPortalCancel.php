@@ -27,12 +27,9 @@ class PaymentPortalCancel extends Component
         return view('livewire.payment-portal-return');
     }
 
-
-
-    public function fetch($data)
+    public function mount()
     {
-        $this->fetchTransaction($data);
-        dd("Render ra giao thanh toan that bai");
+        $this->setupViewProperties();
     }
 
     public function setupViewProperties()
@@ -43,26 +40,5 @@ class PaymentPortalCancel extends Component
         $this->amount = $this->returnData['amount'];
         $this->payment_result = $this->returnData['result'];
         $this->isCheckComplete = true;
-    }
-
-    public function paymentCancel()
-    {
-        $returnData = request()->post();
-
-        \Log::info("Payment RETURN", $returnData);
-
-        // 1. Log du lieu gui ve
-        // 2. Validate data xem co order id hay khong
-        // 3 Neu co: fetch transsaction, luu cac thong tin vao db
-
-        if (!empty($returnData['order_id'])) {
-            $this->fetch($returnData);
-        }
-
-        $this->setupViewProperties();
-
-        if ($this->isCheckComplete) {
-            return view('pages.payment-portal.cancel');
-        }
     }
 }

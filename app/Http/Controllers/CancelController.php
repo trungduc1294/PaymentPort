@@ -9,7 +9,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Traits\Ver3PaymentTrait;
 
-class ReturnController extends Controller
+class CancelController extends Controller
 {
     use Ver3PaymentTrait;
     public function index()
@@ -17,7 +17,7 @@ class ReturnController extends Controller
 
     }
 
-    public function success() {
+    public function failed() {
         $returnData = request()->post();
 
         $this->fetchTransaction($returnData);
@@ -28,8 +28,7 @@ class ReturnController extends Controller
         // 2. Validate data xem co order id hay khong
         // 3 Neu co: fetch transsaction, luu cac thong tin vao db
 
-
-        return view('pages.payment-portal.return', [
+        return view('pages.payment-portal.cancel', [
             'returnData' => $returnData
         ]);
     }

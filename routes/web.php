@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CancelController;
 use App\Http\Controllers\PaymentHookController;
+use App\Http\Controllers\ReturnController;
+use App\Livewire\PaymentPortalCancel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportExcelController;
@@ -70,8 +73,8 @@ Route::any('/payment-return-view', function () {
     return view('pages.payment-portal.return');
 })->name('payment.return-view');
 
-Route::any('/payment-return', [\App\Livewire\PaymentPortalReturn::class, 'paymentReturn'])->name('payment.return');
-Route::any('/payment-cancel', [\App\Livewire\PaymentPortalCancel::class, 'paymentCancel'])->name('payment.cancel');
+Route::any('/payment-return', [ReturnController::class, 'success'])->name('payment.return');
+Route::any('/payment-cancel', [CancelController::class, 'failed'])->name('payment.cancel');
 
 
 Route::get('/test', function () {

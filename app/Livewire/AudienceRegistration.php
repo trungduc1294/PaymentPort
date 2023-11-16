@@ -114,6 +114,7 @@ class AudienceRegistration extends Component
         // send email to user
         $reciver_mail = $this->email;
         $this->random_code = $this->generateRandomCode();
+        Log::info("email code", [$this->random_code]);
         Mail::send('emails.confirm_code',
             [
                 'code' => $this->random_code

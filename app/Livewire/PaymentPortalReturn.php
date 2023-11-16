@@ -21,16 +21,20 @@ class PaymentPortalReturn extends Component
     public $order_id;
     public $amount;
     public $payment_result;
-    protected $isCheckComplete = false;
 
+    public function mount()
+    {
+        $this->setupViewProperties();
+    }
     public function render()
     {
+        dump([
+            $this->reference_code,
+            $this->order_id,
+            $this->amount,
+            $this->payment_result,
+        ]);
         return view('livewire.payment-portal-return');
-    }
-
-    public function fetch($data)
-    {
-        $this->fetchTransaction($data);
     }
 
     public function setupViewProperties()
@@ -40,31 +44,5 @@ class PaymentPortalReturn extends Component
         $this->order_id = $this->returnData['order_id'];
         $this->amount = $this->returnData['amount'];
         $this->payment_result = $this->returnData['result'];
-        $this->isCheckComplete = true;
-    }
-
-    public function paymentReturn()
-    {
-        $this->returnData = request()->post();
-//        dd(
-//            $this->returnData,
-//            $this->returnData['order_id'],
-//        );
-
-        \Log::info("Payment RETURN", $this->returnData);
-
-        // 1. Log du lieu gui ve
-        // 2. Validate data xem co order id hay khong
-        // 3 Neu co: fetch transsaction, luu cac thong tin vao db
-
-        if (!empty($this->returnData['order_id'])) {
-            $this->fetch($this->returnData);
-        }
-
-        $this->setupViewProperties();
-
-        if ($this->isCheckComplete) {
-            return view('pages.payment-portal.return');
-        }
     }
 }
