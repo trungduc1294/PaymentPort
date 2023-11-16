@@ -14,7 +14,6 @@ class ReturnController extends Controller
     use Ver3PaymentTrait;
     public function index()
     {
-
     }
 
     public function success() {

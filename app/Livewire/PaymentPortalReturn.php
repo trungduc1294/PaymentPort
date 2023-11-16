@@ -28,12 +28,6 @@ class PaymentPortalReturn extends Component
     }
     public function render()
     {
-        dump([
-            $this->reference_code,
-            $this->order_id,
-            $this->amount,
-            $this->payment_result,
-        ]);
         return view('livewire.payment-portal-return');
     }
 
