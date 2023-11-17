@@ -17,14 +17,13 @@ class PaymentPortalCancel extends Component
 {
     use Ver3PaymentTrait;
     public $returnData;
-    public $reference_code;
     public $order_id;
     public $amount;
     public $payment_result;
     protected $isCheckComplete = false;
     public function render()
     {
-        return view('livewire.payment-portal-return');
+        return view('livewire.payment-portal-cancel');
     }
 
     public function mount()
@@ -35,7 +34,6 @@ class PaymentPortalCancel extends Component
     public function setupViewProperties()
     {
         $order = Order::where('order_uid', $this->returnData['order_id'])->firstOrFail();
-        $this->reference_code = $order->reference;
         $this->order_id = $this->returnData['order_id'];
         $this->amount = $this->returnData['amount'];
         $this->payment_result = $this->returnData['result'];

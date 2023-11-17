@@ -49,15 +49,7 @@ Route::get('/registration-manage', function () {
 
 Route::post('/delete-order/{id}', [RegistrationManage::class, 'deleteOrder']);
 
-//import excel file ==========================================================================================
-// import export route
-Route::get('/import-excel', function () {
-    return view('import');
-});
-Route::post('/import-excel', [ImportExcelController::class, 'importExcel']);
 
-// export excel file
-Route::get('/export-excel', [\App\Http\Controllers\ExportExcelController::class, 'export']);
 
 
 
@@ -86,6 +78,20 @@ Route::get('/test', function () {
 Route::get('/admin/delete-all-posts', function () {
     return view('admin.delete-all-post');
 });
+
+Route::get('/admin/get-all-transactions-data', function () {
+    return view('admin.get-all-transactions');
+});
+
+//import excel file ==========================================================================================
+// import export route
+Route::get('/import-excel', function () {
+    return view('import');
+});
+Route::post('/import-excel', [ImportExcelController::class, 'importExcel']);
+
+// export excel file
+Route::get('/export-excel', [\App\Http\Controllers\ExportExcelController::class, 'export']);
 
 // Maintainance route ========================================================================================
 Route::get('/maintain', function () {
