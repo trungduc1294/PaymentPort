@@ -23,7 +23,8 @@
             <div class="payment-more-info">
                 <p>If you want to pay your bill again. Please delete your "unpaid" bill in Manage Registration first.</p>
                 <p>Then you can create a bill and pay again</p>
-                <p>Please contact hotline 0123456789 if you have any problems.</p>
+                <p>Tel: +84-243.869.3796</p>
+                <p>Email: ichst-2023@hust.edu.vn</p>
                 <p>Thank you.</p>
                 <a href="/registration-manage">Redirect to Manage Registration</a>
             </div>

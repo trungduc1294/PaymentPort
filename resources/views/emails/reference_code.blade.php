@@ -88,7 +88,7 @@
                 <p>Total pay: {{ number_format($amount) ?? null}}VND</p>
             </div>
             <div class="reference-code-info">
-                <p>Thank you. Please use this code to join RIVF'23.</p>
+                <p>Thank you. Please use this code to join ICHST-2023.</p>
                 <p>Best regards,</p>
                 <p>ICHST-2023</p>
             </div>
