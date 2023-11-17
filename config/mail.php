@@ -34,29 +34,41 @@ return [
     */
 
     'mailers' => [
-        // Reset gmail here
-//        'smtp' => [
-//            'transport' => 'smtp',
-//            'url' => env('MAIL_URL'),
-//            'host' => 'smtp.gmail.com',
-//            'port' => 587,
-//            'encryption' => 'tls',
-//            'username' => 'trungduc.1294@gmail.com',
-//            'password' => 'khefcxjuplpcthpk',
-//            'timeout' => null,
-//            'local_domain' => env('MAIL_EHLO_DOMAIN'),
-//        ],
+//         Reset gmail here
         'smtp' => [
             'transport' => 'smtp',
             'url' => env('MAIL_URL'),
-            'host' => 'smtp-mail.outlook.com',
+            'host' => 'smtp.gmail.com',
             'port' => 587,
             'encryption' => 'tls',
-            'username' => 'no_reply.elearning@hust.edu.vn',
-            'password' => 'bkhn2019',
+            'username' => 'ichst2023@gmail.com',
+            'password' => 'sqhckahukoltzdyv',
+//            'password' => 'hust2023',
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
+//        'smtp' => [
+//            'transport' => 'smtp',
+//            'url' => env('MAIL_URL'),
+//            'host' => 'smtp-mail.outlook.com',
+//            'port' => 587,
+//            'encryption' => 'tls',
+//            'username' => 'no_reply.elearning@hust.edu.vn',
+//            'password' => 'bkhn2019',
+//            'timeout' => null,
+//            'local_domain' => env('MAIL_EHLO_DOMAIN'),
+//        ],
+//        'smtp' => [
+//            'transport' => 'smtp',
+//            'url' => env('MAIL_URL'),
+//            'host' => 'smtp-mail.outlook.com',
+//            'port' => 587,
+//            'encryption' => 'tls',
+//            'username' => 'ichst2023@outlook.com.vn',
+//            'password' => 'hust2023',
+//            'timeout' => null,
+//            'local_domain' => env('MAIL_EHLO_DOMAIN'),
+//        ],
 
         'ses' => [
             'transport' => 'ses',
@@ -116,7 +128,7 @@ return [
 //        'name' => 'Payment Port',
 //    ],
     'from' => [
-        'address' => 'no_reply.elearning@hust.edu.vn',
+        'address' => 'ichst2023@gmail.com',
         'name' => 'ICHST-2023',
     ],
 

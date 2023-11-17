@@ -22,7 +22,8 @@ class CancelController extends Controller
 
         $this->fetchTransaction($returnData);
 
-        \Log::info("Payment RETURN", $returnData);
+        \Log::info("10. Payment CANCEL", $returnData);
+        \Log::info('============================================================================');
 
         // 1. Log du lieu gui ve
         // 2. Validate data xem co order id hay khong

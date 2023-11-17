@@ -322,9 +322,10 @@ class Search extends Component
 
     public function verify() {
         $this->random_code = $this->generateRandomCode();
-        Log::info("email code", [$this->random_code]);
-
         $reciver_mail = $this->author->email;
+
+        Log::info("1. email code", [$this->random_code, $reciver_mail]);
+
         Mail::send('emails.confirm_code',
             [
                 'code' => $this->random_code

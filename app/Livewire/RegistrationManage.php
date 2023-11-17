@@ -87,6 +87,9 @@ class RegistrationManage extends Component
     public function sendCodeEmail() {
         $user_email = $this->searchValue;
         $this->random_code = $this->generateRandomCode();
+
+        \Log::info('[DELETE ORDER] 1. email code', [$this->random_code, $user_email]);
+
         Mail::send('emails.confirm_code',
             [
                 'code' => $this->random_code,
@@ -141,6 +144,9 @@ class RegistrationManage extends Component
                 'showConfirmButton' => false,
                 'onConfirmed' => '',
             ]);
+
+            \Log::info('[DELETE ORDER] 2. Delete Success', [$this->random_code, $user_email]);
+
 
             $this->step = 'search';
         } else {

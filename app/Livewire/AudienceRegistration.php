@@ -114,7 +114,9 @@ class AudienceRegistration extends Component
         // send email to user
         $reciver_mail = $this->email;
         $this->random_code = $this->generateRandomCode();
-        Log::info("email code", [$this->random_code]);
+
+        Log::info("1. email code", [$this->random_code, $reciver_mail]);
+
         Mail::send('emails.confirm_code',
             [
                 'code' => $this->random_code
@@ -169,7 +171,7 @@ class AudienceRegistration extends Component
             // tao transaction o cong thanh toan
             $transaction = app(PaymentService::class)->create($order->order_uid, $this->total_price);
 
-            Log::info('transaction info after request', [
+            Log::info('6. Payment url: ', [
                 $transaction['paymentUrl'],
             ]);
             throw_if(

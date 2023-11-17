@@ -54,7 +54,7 @@ class PaymentService
             $this->getRedirectUrl(config('payment.cancel_url')),
             config('payment.merchant_secret_key')
         ]);
-        Log::info("data to gen signature", [
+        Log::info("2. data to gen signature: ", [
             [
                 config('payment.version'),
                 config('payment.merchant_id'),
@@ -71,7 +71,7 @@ class PaymentService
         ]);
 
         $signature = hash('sha256', $signatureString);
-        Log::info("SHD256 signature", [
+        Log::info("3. SHD256 signature code: ", [
             $signature
         ]);
 
@@ -94,10 +94,10 @@ class PaymentService
             'voucher_code' => '',
             'signature' => $signature
         ];
-        Log::info("create transaction", $data);
+        Log::info("4. Request Data to get PaymentUrl: ", $data);
 
         $response = $this->httpClient->post('/initiate', $data);
-        Log::info("create transaction response", [
+        Log::info("5. create transaction response: ", [
             $response->json()
         ]);
         return $response->json();

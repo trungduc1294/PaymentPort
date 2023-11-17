@@ -49,10 +49,13 @@ trait Ver3PaymentTrait
         $transaction->payment_status = $data['result_code'];
         $transaction->save();
 
+        \Log::info('7. DB transaction Info: ', [$transaction]);
+
         // Thanh toan thanh cong => update trang thai order
         if ($transaction->payment_status === "200") {
             $order->update(['status' => 'paid']);
         }
+
 
         // Gui mail cho nguoi mua thong bao thanh toan thanh cong kem code tham gia
         if ($order->status === 'paid' && $order->reference === null) {
@@ -60,6 +63,15 @@ trait Ver3PaymentTrait
 
             $order->reference = $join_code;
             $order->save();
+
+            \Log::info('8. DB order Info: ', [$order]);
+            \Log::info('9. Sumary Success Info: ', [
+                'join_code' => $join_code,
+                'order_id' => $order->order_uid,
+                'amount' => $transaction->amount,
+            ]);
+            \Log::info('==================================================================');
+
 
             $user_name = User::where('id', $order->user_id)->first()->full_name;
 
