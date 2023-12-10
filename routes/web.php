@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CancelController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\PaymentHookController;
 use App\Http\Controllers\ReturnController;
 use App\Livewire\PaymentPortalCancel;
@@ -97,3 +98,4 @@ Route::get('/export-excel', [\App\Http\Controllers\ExportExcelController::class,
 Route::get('/maintain', function () {
     return view('pages.maintain.maintain');
 })->name('maintain');
+
