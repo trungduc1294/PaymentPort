@@ -2,7 +2,7 @@
     <span class="info_box">
         Please search by full email, include domain name (e.g. abc@gmail.com) <br>
         If you want to delete an unpaid order, please click on Delete button. Then, you can create your bill again and pay it. <br>
-        If you want to cancel a paid order, please contact to hotline: 0123456789. Thank you!
+        If you want to cancel a paid order, please contact to hotline: +84-243.869.3796. Thank you!
     </span>
 
     <div class="error_box">
