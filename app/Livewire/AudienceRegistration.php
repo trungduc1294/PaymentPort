@@ -84,7 +84,7 @@ class AudienceRegistration extends Component
                 return;
             } else {
                 $this->errMessage = '';
-                $this->step = 'show-bill';
+                $this->step = 'registration-form';
             }
         }
     }

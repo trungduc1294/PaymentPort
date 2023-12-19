@@ -304,7 +304,7 @@ class Search extends Component
         $this->total_fee = $this->calTotalFee();
 
         // chuyển sang step 4
-        $this->step = 'checkout';
+        $this->step = 'search';
     }
 
     // Step 4: đưa dữ liệu ra bill va luu thong tin vao db  (checkout)----------------------------------------------
